@@ -76,10 +76,9 @@ function useGatewayTransfer(
   useEffect(() => {
     if (
       transactionData &&
-      transferState &&
       walletInfo &&
       transactionStep === STEP_TRANSFER_START &&
-      transferState.state === TRANSFER_STATE.INACTIVE
+      (!transferState || transferState.state === TRANSFER_STATE.INACTIVE)
     ) {
       setTransferState({
         senderAddress: walletInfo.accountAddress,

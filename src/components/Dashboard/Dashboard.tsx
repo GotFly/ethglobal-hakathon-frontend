@@ -2,13 +2,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Button from '../Button/Button';
 import style from './Dashboard.module.scss';
 import { DashboardProps } from './Dashboard.props';
+import cn from 'classnames';
 
 export default function Dashboard({
   isEmpty,
   page,
   borrowItem,
   lendItem,
-  stableCoin
+  stableCoin,
 }: DashboardProps) {
   return (
     <div className={style.dashboard}>
@@ -86,22 +87,32 @@ export default function Dashboard({
                   >{`${lendItem?.fundsSupplied.chainValue} ${stableCoin}`}</span>
                   <span
                     className={style.itemValueSub}
-                  >{`$${lendItem?.fundsSupplied.chainValue}`}</span>
+                  >{`$${lendItem?.fundsSupplied.currencyValue}`}</span>
+                </div>
+                <div className={style.item}>
+                  <span className={style.itemTitle}>Accrued interest</span>
+                  <span
+                    className={cn(style.itemValue, style.green)}
+                  >{`${lendItem?.accruedInterest.chainValue} ${stableCoin}`}</span>
+                  <span
+                    className={cn(style.itemValueSub, style.green)}
+                  >{`$${lendItem?.fundsSupplied.currencyValue}`}</span>
                 </div>
               </div>
               <div className={style.itemsGroup}>
                 <div className={style.item}>
-                  <span className={style.itemTitle}>
-                    Number of awards accrued
-                  </span>
+                  <span className={style.itemTitle}>Utilization rate</span>
                   <span
                     className={style.itemValue}
-                  >{`${lendItem?.awards}%`}</span>
+                  >{`${lendItem?.utilRate.percentValue} ${stableCoin}`}</span>
+                  <span
+                    className={style.itemValueSub}
+                  >{`$${lendItem?.utilRate.chainValue}`}</span>
                 </div>
                 <div className={style.item}>
                   <span className={style.itemTitle}>Current APY</span>
                   <span
-                    className={style.itemValue}
+                    className={cn(style.itemValue, style.green)}
                   >{`${lendItem?.currentAPY}%`}</span>
                 </div>
               </div>

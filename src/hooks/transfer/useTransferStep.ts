@@ -11,7 +11,11 @@ import { iApprovalState } from '../walletGateway/useGatewayApprove';
 import { iTransactionData } from '../../interfaces/iTransactionData';
 import { iFormData } from '../../interfaces/iFormData';
 import { MethodType } from '../../constants/MethodType';
-import { encodeFunctionData, formatAmountToUint } from '../../utils/Blockchain';
+import {
+  encodeFunctionData,
+  formatAmountToUint,
+  getCreditData,
+} from '../../utils/Blockchain';
 import { LoanAbi } from '../../abis/LoanAbi';
 import { FormValidationHook } from './FormValidationHook';
 import { useDispatch } from 'react-redux';
@@ -21,9 +25,13 @@ import {
   showNotifaction,
 } from '../../features/dialogs/notificationPopupSlice';
 import { ALERT_TYPE } from '../../constants/AlertTypes';
+import { iNetworkInfo } from '../../interfaces/iNetwork';
+import { iWalletInfo } from '../../interfaces/iWallet';
+import { CrmMessages } from '../../constants/CrmMessages';
 
-export function useTokenApprove(
+export function useTransferStep(
   formData: iFormData | null,
+  evmWallet: iWalletInfo | null,
   methodType: MethodType,
   setDataTransaction: any,
 ) {
@@ -57,11 +65,14 @@ export function useTokenApprove(
   };
 
   const onApproveRejected = () => {
-    setTransactionStep(STEP_APPROVE_REJECTED);
+    showMessage(ALERT_TYPE.WARNING, null, CrmMessages.APPROVE_REJECTED);
+    // setTransactionStep(STEP_APPROVE_REJECTED);
+    setTransactionStep(STEP_FORM_FILL);
   };
 
   const afterApprove = async (tx: any = null) => {
     setTransactionStep(STEP_APPROVE_APPROVED);
+    showMessage(ALERT_TYPE.SUCCESS, null, CrmMessages.APPROVE_APPROVED);
     if (tx) {
       setDataTransaction((prevState: iTransactionData) => ({
         ...prevState,
@@ -71,6 +82,7 @@ export function useTokenApprove(
       await tx.wait();
     }
 
+    showMessage(ALERT_TYPE.SUCCESS, null, CrmMessages.APPROVE_PROCCESSED);
     sendTransaction();
   };
 
@@ -79,7 +91,6 @@ export function useTokenApprove(
   };
 
   const approveCallback = (approvalState: iApprovalState) => {
-    console.log(approvalState, 'approvalState');
     if (approvalState.isApproved) {
       afterApprove(approvalState.transaction);
     } else {
@@ -94,6 +105,7 @@ export function useTokenApprove(
     let methodName: string = '';
     let methodParams: any[] = [];
 
+    console.log(methodType, 'methodType');
     if (methodType == MethodType.addLiquidity) {
       methodName = 'addCreditorLiquidity';
       methodParams.push(
@@ -105,6 +117,7 @@ export function useTokenApprove(
         formatAmountToUint(formData.amount, formData.crypto?.decimals),
       );
     }
+    console.log(methodName, methodParams, 'methodParams');
     const data: string = await encodeFunctionData(
       LoanAbi,
       methodName,
@@ -115,10 +128,16 @@ export function useTokenApprove(
 
   const prepareData = async () => {
     if (formData) {
+      showMessage(
+        ALERT_TYPE.SUCCESS,
+        null,
+        CrmMessages.TRANSFER_DATA_PREPARING,
+      );
       let data: string = await makeData(formData);
       console.log(data, 'data');
       setDataTransaction((prevState: iTransactionData) => ({
         ...prevState,
+        to: formData.route?.contractAddress,
         data: data, // But override this one
       }));
       setTransactionStep(STEP_APPROVE_STARTED);
@@ -133,10 +152,18 @@ export function useTokenApprove(
       errorText = JSON.stringify(errorText);
     }
     if (errorText != null) {
-      dispatch(
-        showNotifaction({ alertType: ALERT_TYPE.WARNING, caption: errorText }),
-      );
+      showMessage(ALERT_TYPE.WARNING, null, errorText);
     }
+  };
+
+  const showMessage = (
+    type: ALERT_TYPE,
+    title: string | null,
+    caption: string | null,
+  ) => {
+    dispatch(
+      showNotifaction({ alertType: type, title: title, caption: caption }),
+    );
   };
 
   useEffect(() => {
@@ -151,11 +178,25 @@ export function useTokenApprove(
     }
   }, [transactionStep, formData]);
 
+  useEffect(() => {
+    if (formData?.route && evmWallet) {
+      getWalletCreditData(formData?.route, evmWallet.accountAddress);
+    }
+  }, [formData?.route]);
+
+  const getWalletCreditData = (
+    network: iNetworkInfo,
+    accountAddress: string,
+  ) => {
+    getCreditData(network, accountAddress);
+  };
+
   return {
     transactionStep,
     setTransactionStep,
     beforApprove,
     approveCallback,
-    setErrorMsg
+    setErrorMsg,
+    showMessage,
   };
 }

@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import style from './Transfer.module.scss';
 import { TransferProps } from './Transfer.props';
 import { iFormData } from '../../interfaces/iFormData';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppThunkDispatch, RootState } from '../../store/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 import { getWallet } from '../../utils/WalletUtil';
 import { iTransactionData } from '../../interfaces/iTransactionData';
 import useGatewayBalance from '../../hooks/walletGateway/useGatewayBalance';
-import { useTokenApprove } from '../../hooks/transfer/useTokenApprove';
 import { FXD_COIN_SYMBOL, USDT_COIN_SYMBOL, getNetworkById, getStableCoin } from '../../utils/NetworkUtil';
 import useGatewayApprove from '../../hooks/walletGateway/useGatewayApprove';
 import { useTransferApprove } from '../../hooks/transfer/useTransferApprove';
@@ -21,10 +20,10 @@ import { borrowLiquidityItem } from '../../mocks/borrowLiquidity';
 import { STEP_MAKE_DATA } from '../../constants/TransferConstants';
 import { PageType } from '../../constants/PageType';
 import { MethodType } from '../../constants/MethodType';
-import { iLendPageDashboard } from '../../interfaces/iLendPageDashboard';
-import { iBorrowPageDashboard } from '../../interfaces/iBorrowPageDashboard';
-import { iLendStablecoins } from '../../interfaces/iLendStablecoins';
-import { iBorrowLiquidity } from '../../interfaces/iBorrowLiquidity';
+import { useTransferStep } from '../../hooks/transfer/useTransferStep';
+import { Contract, ethers } from 'ethers';
+import { LoanAbi } from '../../abis/LoanAbi';
+import { formatAmountToUint } from '../../utils/Blockchain';
 
 export default function Transfer({ page }: TransferProps) {
   const [formData, setFormData] = useState<iFormData>({
@@ -49,10 +48,6 @@ export default function Transfer({ page }: TransferProps) {
     formData.route,
     formData.crypto
   );
-
-  const refreshbalance = () => {
-    makeBalanceRefresh();
-  };
 
   const startTransfer = () => {
     setTransactionStep(STEP_MAKE_DATA);
@@ -80,11 +75,21 @@ export default function Transfer({ page }: TransferProps) {
       return;
     }
     const XDCChainId = '50';
-    let stableCoinMustSelected = evmWallet.networkChainId == XDCChainId ? FXD_COIN_SYMBOL : USDT_COIN_SYMBOL;
+    let stableCoinMustSelected = USDT_COIN_SYMBOL;
+    if (evmWallet.networkId) {
+      let curNetwork = getNetworkById(evmWallet.networkId);
+      if (curNetwork && curNetwork.cryptos) {
+        stableCoinMustSelected = curNetwork.cryptos[0].symbol
+      }
+    }
+    if (evmWallet.networkChainId == XDCChainId) {
+      stableCoinMustSelected = FXD_COIN_SYMBOL;
+    }
     if (stableCoin != stableCoinMustSelected) {
       setStableCoin(stableCoinMustSelected);
     }
   }
+
 
   const setAmount = (value: string) => {
     let portion = (value).split(".");
@@ -99,8 +104,9 @@ export default function Transfer({ page }: TransferProps) {
   };
 
 
-  const { transactionStep, setTransactionStep, beforApprove, approveCallback, setErrorMsg } = useTokenApprove(
+  const { transactionStep, setTransactionStep, beforApprove, approveCallback, setErrorMsg, showMessage } = useTransferStep(
     formData,
+    evmWallet,
     methodType,
     setDataTransaction,
   );
@@ -118,6 +124,8 @@ export default function Transfer({ page }: TransferProps) {
     setTransactionStep,
     setDataTransaction,
     setErrorMsg,
+    showMessage,
+    makeBalanceRefresh
   );
 
 

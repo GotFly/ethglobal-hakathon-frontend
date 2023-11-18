@@ -1,4 +1,7 @@
 import { constants, ethers } from 'ethers';
+import { iNetworkInfo } from '../interfaces/iNetwork';
+import { getStableCoin } from './NetworkUtil';
+import { LoanAbi } from '../abis/LoanAbi';
 
 export const isZeroAddress = (address: string | null) => {
   if (
@@ -36,4 +39,24 @@ export const encodeFunctionData = async (
   let iface = new ethers.utils.Interface(contractAbi);
   let data: string = iface.encodeFunctionData(methodName, methodParams);
   return data;
+};
+
+export const getCreditData = async (
+  network: iNetworkInfo,
+  accountAddress: string,
+) => {
+  // const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+  // const signer = provider.getSigner(accountAddress)
+  const provider = new ethers.providers.JsonRpcProvider(network.rpcUrls[0]);
+  const crypto = getStableCoin(network);
+  if (crypto) {
+    let contract = new ethers.Contract(
+      crypto.contractAddress,
+      LoanAbi,
+      provider,
+    );
+    console.log(crypto.contractAddress, accountAddress, 'accountAddress');
+    const res = await contract.getCreditorData(accountAddress);
+    console.log(res, 'res');
+  }
 };

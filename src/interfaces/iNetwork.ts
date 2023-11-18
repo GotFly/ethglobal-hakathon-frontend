@@ -23,6 +23,7 @@ export interface iTokenInfo {
   symbol: string;
   contractAddress: string;
   decimals: string;
+  isDefaultStable: boolean;
 }
 
 export interface iNativeTokenInfo {

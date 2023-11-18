@@ -100,25 +100,6 @@ export const LoanAbi = [
       {
         indexed: false,
         internalType: 'uint256',
-        name: '_lpAmount',
-        type: 'uint256',
-      },
-    ],
-    name: 'CloseBorrowerLoanEvent',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: '_borrowerAddress',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
         name: '_stableAmount',
         type: 'uint256',
       },
@@ -155,6 +136,43 @@ export const LoanAbi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: 'address',
+        name: '_borrowerAddress',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: '_borrowerLpAmount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: '_borrowerStableAmount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: '_creditorLpAmount',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: '_creditorStableAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'InterestBorrowerLoanEvent',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: 'address',
         name: 'previousOwner',
@@ -168,6 +186,25 @@ export const LoanAbi = [
       },
     ],
     name: 'OwnershipTransferred',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: '_borrowerAddress',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: '_lpAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'RemoveBorrowerLoanEvent',
     type: 'event',
   },
   {
@@ -214,12 +251,6 @@ export const LoanAbi = [
       {
         indexed: false,
         internalType: 'uint256',
-        name: '_baseBorrowersLPAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
         name: '_baseBorrowersStableAmount',
         type: 'uint256',
       },
@@ -258,6 +289,19 @@ export const LoanAbi = [
     inputs: [
       {
         indexed: false,
+        internalType: 'uint256',
+        name: '_value',
+        type: 'uint256',
+      },
+    ],
+    name: 'SetCreditorProfitInPercentEvent',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: 'address',
         name: '_tokenAddress',
         type: 'address',
@@ -277,19 +321,6 @@ export const LoanAbi = [
     name: 'addCreditorLiquidity',
     outputs: [],
     stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'baseBorrowersLPAmount',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -376,12 +407,27 @@ export const LoanAbi = [
       },
       {
         internalType: 'uint256',
-        name: 'lpBalanceCurrent',
+        name: 'blockNumberInit',
         type: 'uint256',
       },
       {
         internalType: 'uint256',
-        name: 'stableBalanceCurrent',
+        name: 'lpBalanceLast',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'stableBalanceLast',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'blockNumberLast',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'arrayIndex',
         type: 'uint256',
       },
     ],
@@ -389,13 +435,7 @@ export const LoanAbi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_stableAmount',
-        type: 'uint256',
-      },
-    ],
+    inputs: [],
     name: 'closeBorrowerLoan',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -409,6 +449,19 @@ export const LoanAbi = [
         internalType: 'contract ILPERC20',
         name: '',
         type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'creditorProfitInPercent',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -452,8 +505,156 @@ export const LoanAbi = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_borrowerAddress',
+        type: 'address',
+      },
+    ],
+    name: 'getBorrowerData',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'bool',
+            name: 'exists',
+            type: 'bool',
+          },
+          {
+            internalType: 'bool',
+            name: 'hasLoan',
+            type: 'bool',
+          },
+          {
+            internalType: 'uint256',
+            name: 'lpBalanceInit',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'stableBalanceInit',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'blockNumberInit',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'lpBalanceLast',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'stableBalanceLast',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'blockNumberLast',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'arrayIndex',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct LoanBorrower.Borrower',
+        name: '',
+        type: 'tuple',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'getCollateralFactorAmount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_creditorAddress',
+        type: 'address',
+      },
+    ],
+    name: 'getCreditorAvailableLpLiquidity',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_creditorAddress',
+        type: 'address',
+      },
+    ],
+    name: 'getCreditorAvailableStableLiquidity',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_creditorAddress',
+        type: 'address',
+      },
+    ],
+    name: 'getCreditorData',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'bool',
+            name: 'exists',
+            type: 'bool',
+          },
+          {
+            internalType: 'uint256',
+            name: 'lpBalance',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct LoanCreditor.Creditor',
+        name: '',
+        type: 'tuple',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getCreditorProfitInPercent',
     outputs: [
       {
         internalType: 'uint256',
@@ -560,11 +761,6 @@ export const LoanAbi = [
     inputs: [
       {
         internalType: 'uint256',
-        name: '_baseBorrowersLPAmount',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
         name: '_baseBorrowersStableAmount',
         type: 'uint256',
       },
@@ -596,6 +792,19 @@ export const LoanAbi = [
       },
     ],
     name: 'setCreditorLPToken',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_value',
+        type: 'uint256',
+      },
+    ],
+    name: 'setCreditorProfitInPercent',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

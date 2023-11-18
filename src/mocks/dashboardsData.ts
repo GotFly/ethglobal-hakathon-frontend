@@ -18,6 +18,15 @@ export const lendPageDashboardData: iLendPageDashboard = {
     chainValue: 1200,
     currencyValue: 1200,
   },
-  awards: 90,
+  accruedInterest: {
+    tokenName: 'USDT',
+    chainValue: 200,
+    currencyValue: 200,
+  },
+  utilRate: {
+    tokenName: 'USDT',
+    chainValue: 90,
+    percentValue: 90,
+  },
   currentAPY: 45.2,
 };

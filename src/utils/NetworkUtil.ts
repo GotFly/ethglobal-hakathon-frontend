@@ -35,9 +35,9 @@ export const getStableCoin = (network: iNetworkInfo | null | undefined) => {
   if (!network || !network.cryptos) {
     return null;
   }
-  return network.cryptos.find(v => v.symbol == USDT_COIN_SYMBOL) || null;
+  return network.cryptos.find(v => v.isDefaultStable) || null;
 };
 
-export const getTokenIcon = (tokenSymbol:string) => {
+export const getTokenIcon = (tokenSymbol: string) => {
   return tokenSymbol == USDT_COIN_SYMBOL ? 'usdt-icon.svg' : 'xdc-icon.svg';
-}
+};

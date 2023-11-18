@@ -4,6 +4,15 @@ export interface iLendPageDashboard {
     chainValue: number;
     currencyValue: number;
   };
-  awards: number;
+  accruedInterest: {
+    tokenName: string;
+    chainValue: number;
+    currencyValue: number;
+  };
+  utilRate: {
+    tokenName: string;
+    chainValue: number;
+    percentValue: number;
+  };
   currentAPY: number;
 }
