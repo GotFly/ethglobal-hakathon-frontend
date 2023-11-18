@@ -8,7 +8,7 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'Polygon',
     symbol: 'POL',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '137',
     rpcUrls: [
@@ -28,7 +28,7 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'CELO',
     symbol: 'CEL',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '42220',
     rpcUrls: ['https://forno.celo.org'],
@@ -45,7 +45,7 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'Arbitrum One',
     symbol: 'ARB',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '42161',
     rpcUrls: ['https://arb1.arbitrum.io/rpc'],
@@ -62,7 +62,7 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'Base',
     symbol: 'Base',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '8453',
     rpcUrls: ['https://base.llamarpc.com'],
@@ -79,7 +79,7 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'Scroll',
     symbol: 'Scroll',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '534352',
     rpcUrls: ['https://rpc.scroll.io'],
@@ -96,7 +96,7 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'Zksync',
     symbol: 'Zksync',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '324',
     rpcUrls: ['https://zksync-era.blockpi.network/v1/rpc/public'],
@@ -113,7 +113,7 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'Gnosis',
     symbol: 'Gnosis',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '100',
     rpcUrls: [
@@ -134,12 +134,10 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'Mantle',
     symbol: 'Mantle',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '5000',
-    rpcUrls: [
-      'https://mantle.publicnode.com'
-    ],
+    rpcUrls: ['https://mantle.publicnode.com'],
     img: 'mantle.svg',
     nativeCurrency: {
       name: 'MNT',
@@ -153,12 +151,10 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'XDC Network',
     symbol: 'XDC',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '50',
-    rpcUrls: [
-      'https://rpc.xdcrpc.com'
-    ],
+    rpcUrls: ['https://rpc.xdcrpc.com'],
     img: 'xdc.svg',
     nativeCurrency: {
       name: 'XDC',
@@ -172,12 +168,10 @@ export const networkListInfo: iNetworkInfo[] = [
     isInUse: true,
     name: 'Linea',
     symbol: 'Linea',
-    wallets: [PROVIDER_TYPES.METAMASK],
+    wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '59144',
-    rpcUrls: [
-      'https://linea.blockpi.network/v1/rpc/public'
-    ],
+    rpcUrls: ['https://linea.blockpi.network/v1/rpc/public'],
     img: 'linea.svg',
     nativeCurrency: {
       name: 'ETH',

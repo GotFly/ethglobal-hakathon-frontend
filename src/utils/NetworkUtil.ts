@@ -18,6 +18,6 @@ export function getNetworkByChainIdAndWallet(
 const networkImageFolder = "/networks/";
 
 export function getNetworkImageByChainId(networkChainId: string) {
-  let item = getNetworks().find(v => v.chainId === networkChainId);
+  let item = getNetworks().find(v => parseInt(v.chainId) === parseInt(networkChainId));
   return networkImageFolder + (item ? item.img : 'unknown-logo.png');
 }

@@ -59,13 +59,13 @@ function useWagmiAccount() {
     },
   });
 
-  const chainId = chain ? chain.id : '';
+  const chainId = chain ? chain.id : -1;
   useEffect(() => {
-    if (chain && walletInfo && parseInt(walletInfo.networkChainId) != chain.id) {
+    if (chain && walletInfo && parseInt(walletInfo.networkChainId) != chainId) {
       dispatch(
         networkChanged({
           networkType: CHAIN_TYPE.EVM,
-          networkChainId: chain.id,
+          networkChainId: chainId,
           transportType: TransportTypes.WAGMI,
         }),
       );

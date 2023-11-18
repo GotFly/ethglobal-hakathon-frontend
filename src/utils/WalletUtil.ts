@@ -10,7 +10,7 @@ export const getWalletType = (networkType: string) => {
   let walletTypes: string[] = [];
   switch (networkType) {
     case CHAIN_TYPE.EVM:
-      walletTypes = [PROVIDER_TYPES.METAMASK];
+      walletTypes = [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT];
       break;
     case CHAIN_TYPE.TVM:
       break;

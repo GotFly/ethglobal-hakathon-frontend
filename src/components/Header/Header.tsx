@@ -5,7 +5,7 @@ import { HeaderProps } from './Header.props';
 export default function Header({}: HeaderProps) {
   return (
     <div className={style.header}>
-      <img className={style.logo} src="/logo.png" alt="" width={150} />
+      <img className={style.logo} src="/logo.svg" alt="" width={111} />
       <nav className={style.menu}>
         <ul className={style.menuList}>
           <li className={style.menuItem}>
