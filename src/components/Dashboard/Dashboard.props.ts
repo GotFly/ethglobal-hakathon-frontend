@@ -6,4 +6,5 @@ export interface DashboardProps {
   page: 'Borrow liquidity' | 'Lend stablecoins';
   borrowItem?: iBorrowPageDashboard;
   lendItem?: iLendPageDashboard;
+  stableCoin: string;
 }

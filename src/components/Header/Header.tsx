@@ -37,14 +37,7 @@ export default function Header({}: HeaderProps) {
         </a> */}
       </div>
 
-      <Notification
-        title={'Congratulations!'}
-        message={
-          'Your payment has been confirmed, and the USDC will now be reflected in your wallet.'
-        }
-        isVisible={isNotificationVisible}
-        handleClose={() => setNotificationVisible(false)}
-      />
+      <Notification />
     </div>
   );
 }

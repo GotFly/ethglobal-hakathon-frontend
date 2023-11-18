@@ -4,8 +4,9 @@ import useWagmiAlowance from '../wagmi/useWagmiAlowance';
 import { getWallet } from '../../utils/WalletUtil';
 import { RootState } from '../../store/store';
 import { STEP_APPROVE_STARTED } from '../../constants/TransferConstants';
-import { isZeroAddress } from '../../utils/Blockchain';
+import { formatAmountToUint, isZeroAddress } from '../../utils/Blockchain';
 import useMetasmaskAllowance from '../metamask/useMetasmaskAllowance';
+import { iTokenInfo } from '../../interfaces/iNetwork';
 
 export enum APPROVAL_STATE {
   INACTIVE = 0,
@@ -38,8 +39,8 @@ const initApprovalState: iApprovalState = {
 
 function useGatewayApprove(
   amount: string,
-  tokenContractAddress: string,
-  approvalAddress: string,
+  token: iTokenInfo | null,
+  approvalAddress: string | null,
   transactionStep: number,
   callback: any,
 ) {
@@ -60,6 +61,7 @@ function useGatewayApprove(
       approvalState.state === APPROVAL_STATE.FINISHED &&
       transactionStep === STEP_APPROVE_STARTED
     ) {
+      console.log(approvalState,'approvalState')
       callback({
         isApproved: approvalState.isApproved,
         transaction: approvalState.transaction,
@@ -73,20 +75,23 @@ function useGatewayApprove(
 
   useEffect(() => {
     if (
+      token &&
+      approvalAddress &&
       transactionStep === STEP_APPROVE_STARTED &&
-      approvalState.state === APPROVAL_STATE.INACTIVE
+      (approvalState == null || approvalState.state === APPROVAL_STATE.INACTIVE)
     ) {
-      if (isZeroAddress(tokenContractAddress)) {
+      if (isZeroAddress(token.contractAddress)) {
         callback({
           isApproved: true,
           transaction: null,
         });
         // return proccessResponce;
       } else {
+        let approveAmount = calcApproveAmount(token, amount);
         if (walletInfo)
           setApprovalState({
-            amount: amount,
-            tokenContractAddress: tokenContractAddress,
+            amount: approveAmount.toString(),
+            tokenContractAddress: token.contractAddress,
             accountAddress: walletInfo.accountAddress,
             approvalAddress: approvalAddress,
             providerType: walletInfo.providerType,
@@ -98,14 +103,15 @@ function useGatewayApprove(
       }
       // getAllowance();
     }
-  }, [
-    amount,
-    tokenContractAddress,
-    approvalAddress,
-    transactionStep,
-    callback,
-    walletInfo,
-  ]);
+  }, [amount, token, approvalAddress, transactionStep, callback, walletInfo]);
+
+  const calcApproveAmount = (crypto: iTokenInfo, amount: string) => {
+    if (!crypto || !amount) {
+      return 0;
+    }
+
+    return formatAmountToUint(amount, crypto.decimals);
+  };
 
   useWagmiAlowance(approvalState, setApprovalState);
   useMetasmaskAllowance(approvalState, setApprovalState);

@@ -4,4 +4,6 @@ export enum CrmConfig {
   CONNECTED_PROVIDERS = 'loanConnectedProviders',
   WORLD_COIN_APP_ID = 'app_staging_3978f573ecfde2da43ddc6b47fff7226',
   WORLD_COIND_ACTION_NAME = 'test',
+
+  MIN_TOTAL_TRANSFER_AMOUNT = 1,
 }

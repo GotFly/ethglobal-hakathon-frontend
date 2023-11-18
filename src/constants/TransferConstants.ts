@@ -1,6 +1,6 @@
 export const STEP_FORM_FILL = 0;
 export const STEP_FORM_NO_ROUTE_FOUND = -2;
-export const STEP_LOAD_QUOTA = 1;
+export const STEP_MAKE_DATA = 1;
 export const STEP_SWITCH_NETWORK = -1;
 // export const STEP_READY_START_SWAP = 2;
 export const STEP_UPDATE_RATES = 2;

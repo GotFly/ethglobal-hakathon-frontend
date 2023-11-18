@@ -22,6 +22,11 @@ export interface iNetworkState {
   error?: string | null;
 }
 
+export interface iNetworkChangeResponce {
+  isSuccess: boolean;
+  error?: any;
+}
+
 function useGatewayNetworkChange(
   networkChangeCallback: any,
 ) {

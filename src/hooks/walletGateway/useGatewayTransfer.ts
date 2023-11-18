@@ -35,7 +35,7 @@ export interface iTransferState {
 }
 
 function useGatewayTransfer(
-  transactionData: iTransactionData,
+  transactionData: iTransactionData | null,
   transactionStep: number,
   callback: any,
   formData: iFormData,
@@ -75,6 +75,7 @@ function useGatewayTransfer(
 
   useEffect(() => {
     if (
+      transactionData &&
       transferState &&
       walletInfo &&
       transactionStep === STEP_TRANSFER_START &&

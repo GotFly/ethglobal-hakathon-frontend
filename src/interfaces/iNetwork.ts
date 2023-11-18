@@ -10,13 +10,17 @@ export interface iNetworkInfo {
   chainType: CHAIN_TYPE;
   chainId: string;
   rpcUrls: string[];
+  cryptos?: iTokenInfo[];
+  contractAddress?: string;
   img: string;
   nativeCurrency: iNativeTokenInfo;
   txScanUrl?: string;
-  blockExplorerUrls?:string[]
+  blockExplorerUrls?: string[];
 }
 
 export interface iTokenInfo {
+  name: string;
+  symbol: string;
   contractAddress: string;
   decimals: string;
 }

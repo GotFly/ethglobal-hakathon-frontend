@@ -4,25 +4,25 @@ import { ConnectWalletButtonProps } from './ConnectWalletButton.props';
 import { useEffect, useState } from 'react';
 import cn from 'classnames';
 import { WalletList } from '../../constants/WalletList';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppThunkDispatch, RootState } from '../../store/store';
 import { cutAddressFormat, getWallet } from '../../utils/WalletUtil';
 import { getNetworkImageByChainId } from '../../utils/NetworkUtil';
 import { networkListInfo } from '../../constants/NetworkListAll';
 import { iNetworkInfo } from '../../interfaces/iNetwork';
 import useGatewayNetworkChange, {
+  iNetworkChangeResponce,
   iNetworkState,
 } from '../../hooks/walletGateway/useGatewayNetworkChange';
 import WalletPopup from '../WalletPopup/WalletPopup';
+import { showNotifaction } from '../../features/dialogs/notificationPopupSlice';
+import { ALERT_TYPE } from '../../constants/AlertTypes';
 
-export default function ConnectWalletButton({}: ConnectWalletButtonProps) {
+export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
   const [isDropdownShown, setIsDropdownShown] = useState<boolean>(false);
-  // const [walletState, setWalletState] = useState<'connected' | 'disconnected'>(
-  //   'connected',
-  // );
   const [isNetworksShown, setIsNetworksShown] = useState<boolean>(false);
-  // const [activeNetwork, setActiveNetwork] = useState<string>(networks[0].name);
-  // const [changeNetwork, setActiveNetwork] = useState<iNetworkInfo | null>(null);
+
+  let dispatch = useDispatch<AppThunkDispatch>();
 
   let connectedWallets = useSelector(
     (state: RootState) => state.walletServiceProvider.allWallets,
@@ -39,19 +39,28 @@ export default function ConnectWalletButton({}: ConnectWalletButtonProps) {
     });
   }, []);
 
+  useEffect(() => {
+    if (isDropdownShown && isNetworksShown) {
+      setIsNetworksShown(false)
+    }
+  }, [isDropdownShown]);
+
   const changeNetwork = (network: iNetworkInfo) => {
     handleChainChange(network);
   };
 
-  const networkChangeCallback = (networkChangeState: iNetworkState) => {
-    // startNetworkChange(false);
-    // console.log(networkChangeState, 'networkChangeState')
-    // if (networkChangeState.isSuccess) {
-    // } else {
-    //   if (networkChangeState.error) {
-    //     setErrorMsg(networkChangeState.error);
-    //   }
-    // }
+  const networkChangeCallback = (networkChangeState: iNetworkChangeResponce) => {
+    console.log(networkChangeState, 'networkChangeState')
+    if (networkChangeState.isSuccess) {
+      setIsNetworksShown(false);
+    } else {
+      dispatch(
+        showNotifaction({
+          alertType: ALERT_TYPE.WARNING,
+          caption: networkChangeState.error,
+        }),
+      );
+    }
   };
 
   const { handleChainChange } = useGatewayNetworkChange(networkChangeCallback);

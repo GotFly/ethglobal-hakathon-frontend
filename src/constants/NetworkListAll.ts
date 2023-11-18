@@ -21,6 +21,15 @@ export const networkListInfo: iNetworkInfo[] = [
       symbol: 'MATIC',
       decimals: 18,
     },
+    contractAddress: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
+    cryptos:[
+      {
+        name: 'USDT',
+        symbol: 'USDT',
+        decimals: '6',
+        contractAddress:'0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
+      }
+    ],
     blockExplorerUrls: ['https://polygonscan.com/'],
   },
   {

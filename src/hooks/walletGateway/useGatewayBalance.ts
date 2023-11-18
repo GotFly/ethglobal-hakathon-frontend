@@ -38,8 +38,11 @@ export interface iBalanceState {
 //   balance: null,
 // };
 
-function useGatewayBalance(network: iNetworkInfo, crypto: iTokenInfo) {
-  const [tokenBalance, setTokenBalance] = useState(0.0);
+function useGatewayBalance(
+  network: iNetworkInfo | null,
+  crypto: iTokenInfo | null,
+) {
+  const [tokenBalance, setTokenBalance] = useState<number>(0.0);
   const [balanceState, setBalanceState] = useState<iBalanceState | null>(null);
   const [hardRefresh, setHardRefresh] = useState(false);
 
@@ -86,7 +89,7 @@ function useGatewayBalance(network: iNetworkInfo, crypto: iTokenInfo) {
 
   useMetasmaskBalance(balanceState, setBalanceState);
   useWagmiBalance(balanceState, setBalanceState);
-  return [tokenBalance, makeRefresh];
+  return { tokenBalance, makeRefresh };
 }
 
 export default useGatewayBalance;

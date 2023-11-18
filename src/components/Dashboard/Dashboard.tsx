@@ -8,6 +8,7 @@ export default function Dashboard({
   page,
   borrowItem,
   lendItem,
+  stableCoin
 }: DashboardProps) {
   return (
     <div className={style.dashboard}>
@@ -41,7 +42,7 @@ export default function Dashboard({
                   <span className={style.itemTitle}>Funds borrowed</span>
                   <span
                     className={style.itemValue}
-                  >{`${borrowItem?.fundsBorrowed.chainValue} ${borrowItem?.fundsBorrowed.tokenName}`}</span>
+                  >{`${borrowItem?.fundsBorrowed.chainValue} ${stableCoin}`}</span>
                   <span
                     className={style.itemValueSub}
                   >{`$${borrowItem?.fundsBorrowed.chainValue}`}</span>
@@ -82,7 +83,7 @@ export default function Dashboard({
                   <span className={style.itemTitle}>Funds supplied</span>
                   <span
                     className={style.itemValue}
-                  >{`${lendItem?.fundsSupplied.chainValue} ${lendItem?.fundsSupplied.tokenName}`}</span>
+                  >{`${lendItem?.fundsSupplied.chainValue} ${stableCoin}`}</span>
                   <span
                     className={style.itemValueSub}
                   >{`$${lendItem?.fundsSupplied.chainValue}`}</span>

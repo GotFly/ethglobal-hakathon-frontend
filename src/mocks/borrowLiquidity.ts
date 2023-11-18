@@ -3,15 +3,15 @@ import { iBorrowLiquidity } from '../interfaces/iBorrowLiquidity';
 export const borrowLiquidityItem: iBorrowLiquidity = {
   tokens: [
     {
-      name: 'ARB',
-      icon: '/arb-icon.svg',
+      name: 'WETH',
+      icon: '/weth.svg',
     },
     {
-      name: 'ETH',
-      icon: '/eth-icon.svg',
+      name: 'USDT',
+      icon: '/usdt.svg',
     },
   ],
-  swap: 'Sushiswap',
+  swap: 'Uniswap',
   farmingAPY: 90.5,
   borrowAPY: 45.2,
   totalAPY: 40.3,

@@ -6,5 +6,6 @@ export interface iTransactionData {
   value: string | null;
   chainId: string;
   approvalAddress: string;
+  approvalTxHash: string | null;
+  transferTxHash: string | null;
 }
-

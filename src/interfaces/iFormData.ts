@@ -1,6 +1,8 @@
-import { iTokenInfo } from "./iNetwork";
+import { iNetworkInfo, iTokenInfo } from './iNetwork';
 
-export interface iFormData{
-    cryptoFrom: iTokenInfo
+export interface iFormData {
+  amount: string;
+  route: iNetworkInfo | null;
+  crypto: iTokenInfo | null;
+  approvalAddress: string | null;
 }
-

@@ -1,6 +1,7 @@
 import { CrmMessages } from '../../constants/CrmMessages';
 
 export async function signMeta(account: string, injectProvider = null) {
+  return true;
   let isSigned = true;
   let provider = injectProvider ? injectProvider : window.ethereum;
   if (!provider) {

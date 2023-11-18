@@ -1,4 +1,4 @@
-import { constants } from 'ethers';
+import { constants, ethers } from 'ethers';
 
 export const isZeroAddress = (address: string | null) => {
   if (
@@ -22,4 +22,18 @@ export const truncateDecimals = (num: string, digits = 4) => {
       : parseFloat(trimmedResult);
 
   return finalResult;
+};
+
+export const formatAmountToUint = (amount: string, cryptoDecimals: string) => {
+  return ethers.utils.parseUnits(amount, cryptoDecimals);
+};
+
+export const encodeFunctionData = async (
+  contractAbi: any,
+  methodName: string,
+  methodParams: any[],
+) => {
+  let iface = new ethers.utils.Interface(contractAbi);
+  let data: string = iface.encodeFunctionData(methodName, methodParams);
+  return data;
 };
