@@ -1,0 +1,5 @@
+export enum AUTH_STEP {
+  NOT_AUTHROZIED = 0,
+  PROOF_GETED = 1,
+  AUTHROZIED = 2,
+}

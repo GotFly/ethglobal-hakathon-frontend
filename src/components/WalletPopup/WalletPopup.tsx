@@ -19,6 +19,7 @@ export default function WalletPopup({
   items,
   handleActive,
 }: WalletPopupProps) {
+
   let dispatch = useDispatch<AppThunkDispatch>();
   const { connectToWallet, disconnectWallet } = useWagmiConnect();
 
@@ -60,16 +61,15 @@ export default function WalletPopup({
           <img src={'/close-icon.svg'} alt="" />
         </button>
         <h2 className={style.dropdownTitle}>Select wallet</h2>
-        <span className={style.dropdownDescription}>
-          By connecting your wallet, you agree to our{' '}
+        {/* <span className={style.dropdownDescription}>
+          By connecting your wallet, you agree to our
           <Link to={'/'}>Terms and Conditions</Link>
-        </span>
+        </span> */}
         <div className={style.wallets}>
           {items.map(item => (
             <WalletItem
               key={item.key}
               walletTypeItem={item}
-              isDisabled={false}
               connectWallet={() => onWalletSelect(item.key)}
               disconnectWallet={() => disconnectWalletByKey(item.key)}
             />
@@ -83,12 +83,10 @@ export default function WalletPopup({
 
 const WalletItem = ({
   walletTypeItem,
-  isDisabled,
   connectWallet,
   disconnectWallet,
 }: {
   walletTypeItem: iWalletType;
-  isDisabled: boolean;
   connectWallet: () => void;
   disconnectWallet: () => void;
 }) => {
@@ -113,7 +111,7 @@ const WalletItem = ({
           [style.disconnectBtn]: isConnected,
         })}
         onClick={isConnected ? disconnectWallet : connectWallet}
-        disabled={isDisabled}
+        disabled={!isConnected && connectedWallets.length > 0}
       >
         {isConnected ? 'Disconnect' : 'Connect wallet'}
       </button>

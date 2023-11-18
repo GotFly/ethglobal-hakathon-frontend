@@ -1,0 +1,52 @@
+.notification {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(0, 187, 86, 0.65);
+  backdrop-filter: blur(5px);
+  width: 264px;
+  border-radius: 8px;
+  position: absolute;
+  top: 100px;
+  right: 0;
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
+  transform: translateX(10px);
+  transition: all 0.5s;
+  padding: 12px 12px 20px;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+  transform: translateX(0);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  font-size: 14px;
+  line-height: 1.2;
+  color: white;
+}
+
+.title {
+  font-size: 18px;
+  color: white;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}

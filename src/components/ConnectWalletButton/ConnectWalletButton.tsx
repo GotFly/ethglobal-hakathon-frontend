@@ -60,13 +60,13 @@ export default function ConnectWalletButton({}: ConnectWalletButtonProps) {
       {!evmWallet && (
         <Button onClick={() => setIsDropdownShown(!isDropdownShown)}>
           Connect wallet
-          <img
+          {/* <img
             className={cn(style.arrow, {
               [style.arrowActive]: isDropdownShown,
             })}
             src="/dropdown-button-arrow.svg"
             alt=""
-          />
+          /> */}
         </Button>
       )}
 

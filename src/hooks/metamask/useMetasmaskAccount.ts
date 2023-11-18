@@ -79,23 +79,39 @@ function useMetasmaskAccount() {
       // })
     }
 
-    setTimeout(() => {
-      // const transportType = localStorageObj.get("transportType");
-      // const providerType = localStorageObj.get("providerType");
-      // if (hasOldConnectionWallet(PROVIDER_METAMASK)) {
-      //   // if((transportType === null || transportType === '') && providerType === PROVIDER_METAMASK){
-      //   dispatch(autoConnectWallet());
-      // }
-      isConnected();
-    }, 5000);
+    const onPageLoad = () => {
+      connectMeta();
+      // dispatch(autoConnectWallet());
+      console.log('page loaded');
+      // do something else
+    };
+
+    // Check if the page has already loaded
+    if (document.readyState === 'complete') {
+      onPageLoad();
+    } else {
+      window.addEventListener('load', onPageLoad, false);
+      // Remove the event listener when component unmounts
+      return () => window.removeEventListener('load', onPageLoad);
+    }
+
+    // setTimeout(() => {
+    //   // const transportType = localStorageObj.get("transportType");
+    //   // const providerType = localStorageObj.get("providerType");
+    //   // if (hasOldConnectionWallet(PROVIDER_METAMASK)) {
+    //   //   // if((transportType === null || transportType === '') && providerType === PROVIDER_METAMASK){
+    //   //   dispatch(autoConnectWallet());
+    //   // }
+    //   isConnected();
+    // }, 5000);
   }, []);
 
-  window.onload = event => {
-    console.log(event, 'onload');
-    isConnected();
-  };
+  // window.onload = event => {
+  //   console.log(event, 'onload');
+  //   isConnected();
+  // };
 
-  async function isConnected() {
+  const connectMeta = async () => {
     if (!window.ethereum) {
       return;
     }
@@ -113,7 +129,7 @@ function useMetasmaskAccount() {
     ) {
       dispatch(connectWallet(PROVIDER_TYPES.METAMASK));
     }
-  }
+  };
 
   // useEffect(() => {
   // }, []);

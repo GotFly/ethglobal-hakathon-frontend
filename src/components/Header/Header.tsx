@@ -1,8 +1,14 @@
 import ConnectWalletButton from '../ConnectWalletButton/ConnectWalletButton';
+import WorldCoinButton from '../WorldCoinButton/WorldCoinButton';
 import style from './Header.module.scss';
 import { HeaderProps } from './Header.props';
+import Notification from '../Notification/Notification';
+import { useState } from 'react';
 
 export default function Header({}: HeaderProps) {
+  const [isNotificationVisible, setNotificationVisible] =
+    useState<boolean>(false);
+
   return (
     <div className={style.header}>
       <img className={style.logo} src="/logo.svg" alt="" width={111} />
@@ -24,11 +30,21 @@ export default function Header({}: HeaderProps) {
       </nav>
       <div className={style.cta}>
         <ConnectWalletButton />
-        <a className={style.worldIdBtn} href="">
+        <WorldCoinButton />
+        {/* <a className={style.worldIdBtn} href="">
           Sign in with WorldID
           <img src="/link-arrow.svg" alt="" />
-        </a>
+        </a> */}
       </div>
+
+      <Notification
+        title={'Congratulations!'}
+        message={
+          'Your payment has been confirmed, and the USDC will now be reflected in your wallet.'
+        }
+        isVisible={isNotificationVisible}
+        handleClose={() => setNotificationVisible(false)}
+      />
     </div>
   );
 }
