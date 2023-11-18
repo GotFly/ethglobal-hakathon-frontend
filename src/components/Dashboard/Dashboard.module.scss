@@ -1,0 +1,54 @@
+.dashboard {
+  display: flex;
+  align-items: first baseline;
+  gap: 20px;
+  justify-content: space-between;
+  border-radius: 16px;
+  border: 1px solid var(--line-color);
+  padding: 30px 40px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  gap: 80px;
+}
+
+.itemsGroup {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemTitle {
+  color: #475467;
+  font-size: 16px;
+  letter-spacing: -0.464px;
+  margin-bottom: 8px;
+}
+
+.itemValue {
+  color: #475467;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.696px;
+  line-height: 1;
+}
+
+.itemValueSub {
+  color: #486284;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  margin-top: 6px;
+}

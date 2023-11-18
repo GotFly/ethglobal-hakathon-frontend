@@ -1,0 +1,221 @@
+.connectWalletButton {
+  position: relative;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  bottom: -9px;
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(100% - 7px));
+  transition: all 0.3s;
+  min-width: 370px;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.1);
+  padding: 24px 22px 36px 36px;
+}
+
+.shown {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(100%);
+}
+
+.arrow {
+  transition: all 0.2s;
+}
+
+.arrowActive {
+  transform: rotate(180deg);
+}
+
+.dropdownTitle {
+  font-size: 24px;
+  font-weight: 600px;
+  color: #142438;
+  text-align: center;
+  margin: 0 0 6px;
+}
+
+.dropdownDescription {
+  font-size: 14px;
+  font-weight: 500px;
+  color: #142438;
+  text-align: center;
+  margin: 0 0 24px;
+
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+}
+
+.wallets {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.wallet {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  position: relative;
+
+  &:not(:last-child) {
+    border-bottom: 1px dashed #e4e8f2;
+    padding-bottom: 14px;
+  }
+
+  &::before {
+    content: '';
+    width: 2px;
+    height: 36px;
+    border-radius: 2px;
+    background: #e4e8f2;
+    position: absolute;
+    left: -14px;
+    top: 0;
+    transition: all 0.1s;
+  }
+
+  &:hover::before {
+    background: var(--primary-color);
+  }
+}
+
+.active {
+  &::before {
+    background: var(--primary-color);
+  }
+}
+
+.walletName {
+  color: #142438;
+  font-weight: 600;
+}
+
+.walletBtn {
+  flex: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  background: #131315;
+  border: none;
+  border-radius: 8px;
+  height: 36px;
+  min-width: 133px;
+  cursor: pointer;
+  padding: 0 14px;
+  margin-left: auto;
+
+  &:disabled {
+    background-color: #abb7c9;
+    cursor: auto;
+  }
+}
+
+.disconnectBtn {
+  background-color: #d95656;
+}
+
+.walletConnectedBtn {
+  padding: 0 24px;
+}
+
+.connectedBtns {
+  display: flex;
+  gap: 16px;
+}
+
+.switchNetworkPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 20px;
+  background: var(--default-white, #fff);
+  box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.1);
+  width: 370px;
+  transition: all 0.2s;
+  padding: 30px 22px 22px;
+}
+
+.switchNetworkPopupActive {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+}
+
+.networkItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 50px;
+  border-radius: 8px;
+  color: #142438;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  padding: 0 11px;
+
+  &:hover {
+    background: #ecf0f7;
+  }
+}
+
+.activeNetwork {
+  background: var(--primary-color);
+  color: white;
+
+  &:hover {
+    background: var(--primary-color);
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.activeNetworkIcon {
+  height: 52px;
+  width: auto;
+  cursor: pointer;
+}
+
+.connectedMarker {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  margin-left: auto;
+
+  &::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #30e000;
+  }
+}
