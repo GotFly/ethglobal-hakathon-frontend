@@ -1,1 +1,3 @@
-export interface DashboardProps {}
+export interface DashboardProps {
+  isEmpty?: boolean;
+}

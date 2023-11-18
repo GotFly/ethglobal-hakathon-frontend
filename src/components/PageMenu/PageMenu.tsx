@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 const menu = [
   {
     image: '/borrow-icon.svg',
-    name: 'Borrow stablecoins',
+    name: 'Borrow liquidity',
     description: 'Elevated risk, higher gains',
     link: '/',
   },

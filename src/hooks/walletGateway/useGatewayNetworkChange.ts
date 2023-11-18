@@ -23,7 +23,6 @@ export interface iNetworkState {
 }
 
 function useGatewayNetworkChange(
-  selectedNetwork: iNetworkInfo,
   networkChangeCallback: any,
 ) {
   let [changeNetworkState, setChangeNetworkState] =
@@ -51,10 +50,10 @@ function useGatewayNetworkChange(
     }
   }, [changeNetworkState]);
 
-  const handleChainChange = () => {
+  const handleChainChange = (network:iNetworkInfo) => {
     if(walletInfo){
       setChangeNetworkState({
-        selectedNetwork: selectedNetwork,
+        selectedNetwork: network,
         state: NETWORK_STATE.STARTED,
         providerType: walletInfo.providerType,
         transportType: walletInfo.transportType,

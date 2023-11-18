@@ -11,9 +11,8 @@ export interface iNetworkInfo {
   chainId: string;
   rpcUrls: string[];
   img: string;
-  currency: string;
   nativeCurrency: iNativeTokenInfo;
-  txScanUrl: string;
+  txScanUrl?: string;
   blockExplorerUrls?:string[]
 }
 

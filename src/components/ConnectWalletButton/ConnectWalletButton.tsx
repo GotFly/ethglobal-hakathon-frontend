@@ -12,59 +12,31 @@ import { isMobileDevice } from '../../utils/BrowserUtil';
 import { PROVIDER_TYPES } from '../../constants/ProviderTypes';
 import { TransportTypes } from '../../constants/TransportTypes';
 import useWagmiConnect from '../../hooks/wagmi/useWagmiConnect';
-import { connectWallet, disconnect } from '../../features/walletService/walletService';
-
-const networks = [
-  {
-    icon: '/networks/polygon.svg',
-    name: 'Polygon',
-  },
-  {
-    icon: '/networks/celo.svg',
-    name: 'Celo',
-  },
-  {
-    icon: '/networks/arbitrum.svg',
-    name: 'Arbitrum',
-  },
-  {
-    icon: '/networks/base.svg',
-    name: 'Base',
-  },
-  {
-    icon: '/networks/scroll.svg',
-    name: 'Scroll',
-  },
-  {
-    icon: '/networks/zksync.svg',
-    name: 'ZKSync',
-  },
-  {
-    icon: '/networks/gnosis.svg',
-    name: 'Gnosis',
-  },
-  {
-    icon: '/networks/mantle.svg',
-    name: 'Mantle',
-  },
-  {
-    icon: '/networks/xdc.svg',
-    name: 'XDC',
-  },
-  {
-    icon: '/networks/linea.svg',
-    name: 'Linea',
-  },
-];
+import {
+  connectWallet,
+  disconnect,
+} from '../../features/walletService/walletService';
+import { cutAddressFormat, getWallet } from '../../utils/WalletUtil';
+import { getNetworkImageByChainId } from '../../utils/NetworkUtil';
+import { networkListInfo } from '../../constants/NetworkListAll';
+import { iNetworkInfo } from '../../interfaces/iNetwork';
+import useGatewayNetworkChange, { iNetworkState } from '../../hooks/walletGateway/useGatewayNetworkChange';
 
 export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
   const [activeWallet, setActiveWallet] = useState<string>('');
   const [isDropdownShown, setIsDropdownShown] = useState<boolean>(false);
-  const [walletState, setWalletState] = useState<'connected' | 'disconnected'>(
-    'connected',
-  );
+  // const [walletState, setWalletState] = useState<'connected' | 'disconnected'>(
+  //   'connected',
+  // );
   const [isNetworksShown, setIsNetworksShown] = useState<boolean>(false);
-  const [activeNetwork, setActiveNetwork] = useState<string>(networks[0].name);
+  // const [activeNetwork, setActiveNetwork] = useState<string>(networks[0].name);
+  // const [changeNetwork, setActiveNetwork] = useState<iNetworkInfo | null>(null);
+
+  let connectedWallets = useSelector(
+    (state: RootState) => state.walletServiceProvider.allWallets,
+  );
+
+  const evmWallet = getWallet(connectedWallets);
 
   useEffect(() => {
     document.addEventListener('keydown', e => {
@@ -78,17 +50,17 @@ export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
   const { connectToWallet, disconnectWallet } = useWagmiConnect();
 
   const metamaskAppDeepLink =
-    "https://metamask.app.link/dapp/" + window.location.host;
+    'https://metamask.app.link/dapp/' + window.location.host;
 
   const isMobile = isMobileDevice();
 
   const onWalletSelect = (walletKey: string) => {
-    let wallet = WalletList.find((v) => v.key === walletKey);
+    let wallet = WalletList.find(v => v.key === walletKey);
     if (!wallet) {
       return;
     }
     if (isMobile && wallet.key == PROVIDER_TYPES.METAMASK && !window.ethereum) {
-      window.open(metamaskAppDeepLink, "_blank");
+      window.open(metamaskAppDeepLink, '_blank');
     } else if (wallet.transport == TransportTypes.WAGMI && wallet.connector) {
       connectToWallet(wallet.connector);
     } else {
@@ -96,18 +68,36 @@ export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
     }
   };
 
-   const disconnectWalletByKey = (walletKey:string) => {
-    let wallet = WalletList.find((v) => v.key === walletKey);
+  const disconnectWalletByKey = (walletKey: string) => {
+    let wallet = WalletList.find(v => v.key === walletKey);
     dispatch(disconnect(walletKey));
     if (wallet && wallet.transport == TransportTypes.WAGMI) {
       disconnectWallet();
     }
+  };
+
+  const changeNetwork = (network: iNetworkInfo) => {
+    handleChainChange(network)
   }
 
+  const networkChangeCallback = (networkChangeState: iNetworkState) => {
+    // startNetworkChange(false);
+    console.log(networkChangeState, 'networkChangeState')
+    // if (networkChangeState.isSuccess) {
+    // } else {
+    //   if (networkChangeState.error) {
+    //     setErrorMsg(networkChangeState.error);
+    //   }
+    // }
+  };
 
+  const { handleChainChange } = useGatewayNetworkChange(
+    networkChangeCallback
+  );
+  console.log(evmWallet, 'evmWallet');
   return (
     <div className={style.connectWalletButton}>
-      {walletState === 'disconnected' && (
+      {!evmWallet && (
         <Button onClick={() => setIsDropdownShown(!isDropdownShown)}>
           Connect wallet
           <img
@@ -120,22 +110,20 @@ export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
         </Button>
       )}
 
-      {walletState === 'connected' && (
+      {evmWallet && (
         <div className={style.connectedBtns}>
           <img
             className={style.activeNetworkIcon}
-            src={networks
-              .filter(item => item.name === activeNetwork)
-              .map(item => item.icon)
-              .join()}
+            src={getNetworkImageByChainId(evmWallet.networkChainId)}
             alt=""
             onClick={() => setIsNetworksShown(true)}
           />
           <Button
             onClick={() => setIsDropdownShown(!isDropdownShown)}
             className={style.walletConnectedBtn}
+            size={'primary'}
           >
-            0xBAD7...E116
+            {cutAddressFormat(evmWallet.accountAddress)}
           </Button>
         </div>
       )}
@@ -155,7 +143,7 @@ export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
             <WalletItem
               key={item.key}
               walletTypeItem={item}
-              isDisabled={activeWallet !== '' && activeWallet !== item.name}
+              isDisabled={false}
               connectWallet={() => onWalletSelect(item.key)}
               disconnectWallet={() => disconnectWalletByKey(item.key)}
             />
@@ -170,17 +158,17 @@ export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
       >
         <h2 className={style.dropdownTitle}>Switch network</h2>
         <div className={style.networks}>
-          {networks.map(item => (
+          {networkListInfo.map(item => (
             <div
               key={item.name}
               className={cn(style.networkItem, {
-                [style.activeNetwork]: item.name === activeNetwork,
+                [style.activeNetwork]: item.id === evmWallet?.networkId,
               })}
-              onClick={() => setActiveNetwork(item.name)}
+              onClick={() => changeNetwork(item)}
             >
-              <img src={item.icon} alt="" />
+              <img src={getNetworkImageByChainId(item.chainId)} alt="" />
               <span>{item.name}</span>
-              {item.name === activeNetwork && (
+              {item.id === evmWallet?.networkId && (
                 <span className={style.connectedMarker}>Connected</span>
               )}
             </div>
@@ -209,11 +197,11 @@ const WalletItem = ({
   disconnectWallet: () => void;
 }) => {
   let connectedWallets = useSelector(
-    (state: RootState) => state.walletServiceProvider.allWallets
+    (state: RootState) => state.walletServiceProvider.allWallets,
   );
 
   const isConnected = connectedWallets.some(
-    (connectedWallet) => connectedWallet.providerType == walletTypeItem.key
+    connectedWallet => connectedWallet.providerType == walletTypeItem.key,
   );
 
   return (

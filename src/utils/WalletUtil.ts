@@ -60,3 +60,7 @@ export const hasOldConnectionWallet = (providerType: string) => {
   let connected = providers ? JSON.parse(providers) : [];
   return connected.includes(providerType);
 };
+
+export const cutAddressFormat = (accountAddress: string) => {
+  return accountAddress.slice(0, 6) + '...' + accountAddress.slice(-4);
+};

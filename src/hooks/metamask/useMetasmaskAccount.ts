@@ -39,7 +39,7 @@ function useMetasmaskAccount() {
         dispatch(
           networkChanged({
             networkType: CHAIN_TYPE.EVM,
-            networkChainId: parseInt(_chainId, 16),
+            networkChainId: parseInt(_chainId, 16) + '',
           }),
         );
       });

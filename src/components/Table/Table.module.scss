@@ -1,0 +1,206 @@
+.table {
+  position: relative;
+  border-bottom: 1px solid var(--line-color);
+  transition: all 0.5s;
+  padding: 0 20px 24px;
+
+  &::before {
+    content: '';
+    height: 48px;
+    width: 100%;
+    background: #ecf0f7;
+    border-radius: 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+}
+
+.tableContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.col {
+  position: relative;
+  z-index: 2;
+}
+
+.farming {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.farmingTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tokensIcons {
+  width: 40px;
+  height: 24px;
+  position: relative;
+
+  img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+
+    &:first-child {
+      left: 0;
+      z-index: 2;
+    }
+
+    &:last-child {
+      right: 0;
+      z-index: 1;
+    }
+  }
+}
+
+.farmingName {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.swapName {
+  border-radius: 4px;
+  background: #edf3ff;
+  color: #486284;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  width: fit-content;
+  padding: 4px;
+}
+
+.available {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.availableCurrency {
+  color: #486284;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  height: 48px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.center {
+  justify-content: center;
+}
+
+.red {
+  color: #e13f40;
+}
+
+.green {
+  color: #3cd65e;
+}
+
+.borrowBtn {
+  justify-content: center;
+  position: relative;
+  width: 120px;
+  z-index: 2;
+  padding: 0;
+  margin: auto 0 20px;
+}
+
+.borrowBtnActive {
+  background: none;
+  color: black;
+  font-weight: 600;
+}
+
+.borrowForm {
+  display: flex;
+  gap: 16px;
+  width: fit-content;
+  overflow: hidden;
+  margin: 0 0 0 auto;
+
+  input {
+    width: 290px;
+  }
+}
+
+.borrowInputBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .inputLabel {
+    align-self: flex-end;
+    margin-right: 10px;
+  }
+}
+
+.liquidityLink {
+  font-size: 14px;
+  margin: 2px 0 0 12px;
+}
+
+.input {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--line-color);
+  font-size: 16px;
+  padding: 0 12px;
+
+  &::placeholder {
+    color: #486284;
+    opacity: 0.65;
+  }
+}
+
+.inputLabel {
+  color: #8899af;
+  font-size: 12px;
+}
+
+.youWillGet {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.youWillGetValue {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-radius: 8px;
+  background: rgb(178 189 204 / 0.36);
+  border: 1px solid #d0d5dd;
+  width: 210px;
+  color: rgba(54 69 89 / 0.65);
+  padding: 0 12px;
+}
+
+.formBtn {
+  margin-top: 20px;
+}

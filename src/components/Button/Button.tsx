@@ -13,7 +13,7 @@ export default function Button({
       className={cn(
         style.button,
         {
-          [style.small]: (size = 'small'),
+          [style.small]: size === 'small',
         },
         className,
       )}
