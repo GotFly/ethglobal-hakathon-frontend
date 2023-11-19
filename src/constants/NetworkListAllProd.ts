@@ -109,8 +109,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
     contractAddress: '',
     cryptos: [
       {
-        name: 'USDT',
-        symbol: 'USDT',
+        name: 'USDC',
+        symbol: 'USDC',
         decimals: '6',
         contractAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
         isDefaultStable: true,

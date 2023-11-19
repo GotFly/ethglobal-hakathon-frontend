@@ -28,7 +28,7 @@ import Table from '../Table/Table';
 import {
   borrowLiquidityItem,
 } from '../../mocks/borrowLiquidity';
-import { STEP_MAKE_DATA } from '../../constants/TransferConstants';
+import { STEP_VALIDATE } from '../../constants/TransferConstants';
 import { PageType } from '../../constants/PageType';
 import { MethodType } from '../../constants/MethodType';
 import { useTransferStep } from '../../hooks/transfer/useTransferStep';
@@ -64,7 +64,7 @@ export default function Transfer({ page }: TransferProps) {
   // };
 
   const startTransfer = () => {
-    setTransactionStep(STEP_MAKE_DATA);
+    setTransactionStep(STEP_VALIDATE);
   };
 
   const methodType =
@@ -127,7 +127,7 @@ export default function Transfer({ page }: TransferProps) {
     approveCallback,
     setErrorMsg,
     showMessage,
-  } = useTransferStep(formData, methodType, setDataTransaction);
+  } = useTransferStep(formData, methodType, setDataTransaction, evmWallet, page);
 
   const { lendDashboardItem } = useMakeDashboardData(formData, evmWallet, page);
 

@@ -17,6 +17,7 @@ export interface iNetworkInfo {
   txScanUrl?: string;
   blockExplorerUrls?: string[];
   hasBorrowPool: boolean;
+  loanExchangerContractAddress?: string;
 }
 
 export interface iTokenInfo {

@@ -26,10 +26,20 @@ export function useMakeDashboardData(
       if (page == PageType.Lend) {
         makeLendData();
       } else {
-        getBorrowerData(formData.route, evmWallet.accountAddress);
+        makeBorrowData();
       }
     }
   }, [formData?.route]);
+
+  const makeBorrowData = async () => {
+    if (formData && formData.route && evmWallet) {
+      let borrowData = await getBorrowerData(
+        formData.route,
+        evmWallet.accountAddress,
+      );
+      console.log(borrowData, 'borrowData');
+    }
+  };
 
   const makeLendData = async () => {
     if (formData && formData.route && evmWallet) {

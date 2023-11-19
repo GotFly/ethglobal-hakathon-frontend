@@ -251,19 +251,6 @@ export const LoanAbi = [
       {
         indexed: false,
         internalType: 'uint256',
-        name: '_baseBorrowersStableAmount',
-        type: 'uint256',
-      },
-    ],
-    name: 'SetBorrowersLPDataEvent',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
         name: '_amount',
         type: 'uint256',
       },
@@ -334,19 +321,6 @@ export const LoanAbi = [
     name: 'addCreditorLiquidity',
     outputs: [],
     stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'baseBorrowersStableAmount',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -789,19 +763,6 @@ export const LoanAbi = [
       },
     ],
     name: 'setBorrowerLPToken',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_baseBorrowersStableAmount',
-        type: 'uint256',
-      },
-    ],
-    name: 'setBorrowersLPData',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

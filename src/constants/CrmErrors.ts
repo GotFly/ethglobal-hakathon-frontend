@@ -7,4 +7,6 @@ export enum CrmErrors {
   AMOUNT_EMPTY = 'Please enter amount',
   NETWORK_NOT_SELECTED = 'Please select correct network',
   CRYPTO_NOT_FOUND = 'Stable Crypto not found',
+
+  AMOUNT_IS_BIGGER_POOL_AMOUNT = 'Amount is bigger than pool amount',
 }

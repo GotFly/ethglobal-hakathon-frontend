@@ -1,10 +1,7 @@
 export interface iBorrowPageDashboard {
-  loansNumber: number;
-  fundsBorrowed: {
-    tokenName: string;
-    chainValue: number;
-    currencyValue: number;
-  };
+  fundsBorrowed: number;
+  collateralAmount: number;
+  balanceInclAPY: number;
   collateralRatio: number;
   liquidationRatio: number;
 }

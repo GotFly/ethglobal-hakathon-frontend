@@ -7,21 +7,21 @@ export const lendStablecoinsData: iLendStablecoins = {
   },
   tokens: [
     {
-      name: 'WETH',
-      icon: '/weth.svg',
+      name: 'ARB',
+      icon: '/arbitrum-icon.svg',
     },
     {
       name: 'USDT',
       icon: '/usdt.svg',
     },
   ],
-  swap: 'Uniswap',
+  swap: 'Uniswap(Beefy)',
   apy: {
-    value: 25,
-    base: 10,
-    farm: 15,
+    value: 45.2,
+    base: 0,
+    farm: 45.2,
   },
-  collateralRatio: 135,
-  liquidationRatio: 110,
+  collateralRatio: 165,
+  liquidationRatio: 170,
   rewardAsset: 'USDT',
 };

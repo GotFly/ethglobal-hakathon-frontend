@@ -120,7 +120,7 @@ export default function Table({
             <div className={style.col}>
               <div className={style.head}>
                 <ColumnTitle infoMessage={'Example message text'}>
-                  Liquidation fee
+                  Liquidation ratio
                 </ColumnTitle>
               </div>
               <div className={cn(style.cell, style.center)}>

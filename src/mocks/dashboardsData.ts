@@ -2,31 +2,28 @@ import { iBorrowPageDashboard } from '../interfaces/iBorrowPageDashboard';
 import { iLendPageDashboard } from '../interfaces/iLendPageDashboard';
 
 export const borrowPageDashboardData: iBorrowPageDashboard = {
-  loansNumber: 1,
-  fundsBorrowed: {
-    tokenName: 'USDT',
-    chainValue: 1200,
-    currencyValue: 1200,
-  },
-  collateralRatio: 90,
-  liquidationRatio: 80,
+  fundsBorrowed: 1200,
+  collateralAmount: 2160,
+  balanceInclAPY: 2320,
+  collateralRatio: 190,
+  liquidationRatio: 170,
 };
 
 export const lendPageDashboardData: iLendPageDashboard = {
   fundsSupplied: {
     tokenName: 'USDT',
-    chainValue: 0,
-    currencyValue: 0,
+    chainValue: 1000,
+    currencyValue: 1000,
   },
   accruedInterest: {
     tokenName: 'USDT',
-    chainValue: 0,
-    currencyValue: 0,
+    chainValue: 200,
+    currencyValue: 200,
   },
   utilRate: {
     tokenName: 'USDT',
-    chainValue: 0,
-    percentValue: 0,
+    chainValue: 900,
+    percentValue: 90,
   },
   currentAPY: 45.2,
 };

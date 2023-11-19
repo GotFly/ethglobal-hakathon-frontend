@@ -21,6 +21,7 @@ export function getNetworkByChainIdAndWallet(
 const networkImageFolder = '/networks/';
 export const USDT_COIN_SYMBOL = 'USDT';
 export const FXD_COIN_SYMBOL = 'FXD';
+export const USDC_COIN_SYMBOL = 'USDC';
 
 export function getNetworkImageByChainId(networkChainId: string) {
   let item = getNetworks().find(
@@ -55,5 +56,12 @@ export const getLPCreditor = (network: iNetworkInfo | null | undefined) => {
 };
 
 export const getTokenIcon = (tokenSymbol: string) => {
-  return tokenSymbol == USDT_COIN_SYMBOL ? 'usdt-icon.svg' : 'xdc-icon.svg';
+  let img = 'usdt-icon.svg';
+  if (tokenSymbol == FXD_COIN_SYMBOL) {
+    img = 'xdc.svg';
+  }
+  if (tokenSymbol == USDC_COIN_SYMBOL) {
+    img = 'usdc.svg';
+  }
+  return img;
 };

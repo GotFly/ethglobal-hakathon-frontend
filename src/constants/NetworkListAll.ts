@@ -19,6 +19,7 @@ export const networkListInfo: iNetworkInfo[] = [
       decimals: 18,
     },
     contractAddress: '0xcF12A720D91AE6cCe64c6Cb45a769bC143739e4A',
+    loanExchangerContractAddress: '0x2dAa804ae8A09bDECE0e1aff928Dca88D74bD8b9',
     cryptos: [
       {
         name: 'LCSTT',

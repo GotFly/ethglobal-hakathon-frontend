@@ -3,20 +3,20 @@ import { iBorrowLiquidity } from '../interfaces/iBorrowLiquidity';
 export const borrowLiquidityItem: iBorrowLiquidity = {
   tokens: [
     {
-      name: 'WETH',
-      icon: '/weth.svg',
+      name: 'ARB',
+      icon: '/arbitrum-icon.svg',
     },
     {
       name: 'USDT',
       icon: '/usdt.svg',
     },
   ],
-  swap: 'Uniswap',
+  swap: 'Uniswap(Beefy)',
   farmingAPY: 90.5,
   borrowAPY: 45.2,
   totalAPY: 40.3,
-  collateralRatio: 70,
-  liquidationFactor: 80,
+  collateralRatio: 165,
+  liquidationFactor: 170,
   liquidationFee: 5,
   availableToBorrow: {
     chainValue: 1200,

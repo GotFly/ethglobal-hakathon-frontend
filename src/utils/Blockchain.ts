@@ -3,6 +3,7 @@ import { iNetworkInfo, iTokenInfo } from '../interfaces/iNetwork';
 import { getStableCoin } from './NetworkUtil';
 import { LoanAbi } from '../abis/LoanAbi';
 import ERC20Abi from '../abis/ERC20Abi';
+import { ExchangerAbi } from '../abis/Exchanger';
 
 export const isZeroAddress = (address: string | null) => {
   if (
@@ -42,7 +43,10 @@ export const encodeFunctionData = async (
   return data;
 };
 
-export const formatAmountToHuman = (amount: BigNumber, tokenDecimals: string) => {
+export const formatAmountToHuman = (
+  amount: BigNumber,
+  tokenDecimals: string,
+) => {
   return parseFloat(ethers.utils.formatUnits(amount, tokenDecimals));
 };
 export const getCreditData = async (
@@ -103,6 +107,7 @@ export const getBorrowerData = async (
   // const signer = provider.getSigner(accountAddress)
   const provider = new ethers.providers.JsonRpcProvider(network.rpcUrls[0]);
   const crypto = getStableCoin(network);
+
   if (crypto) {
     let contract = new ethers.Contract(
       network.contractAddress || '',
@@ -110,7 +115,38 @@ export const getBorrowerData = async (
       provider,
     );
     const res = await contract.getBorrowerData(accountAddress);
+    console.log(res, 'res');
     return res;
   }
+};
+
+export const getLpMaxData = async (
+  network: iNetworkInfo,
+  accountAddress: string,
+) => {
+  // const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+  // const signer = provider.getSigner(accountAddress)
+  const provider = new ethers.providers.JsonRpcProvider(network.rpcUrls[0]);
+  const crypto = getStableCoin(network);
+
+  if (crypto) {
+    const stableBalance = await getBalanceOfWallet(
+      network,
+      crypto,
+      accountAddress,
+    );
+    let loanExchangeContract = new ethers.Contract(
+      network.loanExchangerContractAddress || '',
+      ExchangerAbi,
+      provider,
+    );
+    const price = await loanExchangeContract.getPricePerShare();
+    // const amount = stableBalance.mul(BigNumber.from(10).pow(8) ).div(price);
+    const amount = price.div(stableBalance);
+    const maxAmount = formatAmountToHuman(amount, '18');
+    // console.log(stableBalance.toString(), price.toString(), amount, maxAmount, 'res');
+    return maxAmount;
+  }
+  return 0;
 };
 // setBorrowersLPData(uint _baseBorrowersStableAmount)

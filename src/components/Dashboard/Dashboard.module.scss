@@ -1,6 +1,6 @@
 .dashboard {
   display: flex;
-  align-items: first baseline;
+  flex-direction: column;
   gap: 20px;
   justify-content: space-between;
   border-radius: 16px;
@@ -32,7 +32,9 @@
 
 .content {
   display: flex;
-  gap: 80px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .itemsGroup {

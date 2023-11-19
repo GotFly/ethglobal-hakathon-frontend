@@ -23,11 +23,15 @@ import {
 import { ALERT_TYPE } from '../../constants/AlertTypes';
 // import { iWalletInfo } from '../../interfaces/iWallet';
 import { CrmMessages } from '../../constants/CrmMessages';
+import { iWalletInfo } from '../../interfaces/iWallet';
+import { PageType } from '../../constants/PageType';
 
 export function useTransferStep(
   formData: iFormData | null,
   methodType: MethodType,
   setDataTransaction: any,
+  evmWallet: iWalletInfo | null,
+  page: PageType,
 ) {
   // useEffect(() => {}, [transactionStep]);
   const [transactionStep, setTransactionStep] = useState(STEP_FORM_FILL);
@@ -38,7 +42,13 @@ export function useTransferStep(
       onInitTransaction();
     }
   };
-  const validationError = FormValidationHook(formData);
+  const validationError = FormValidationHook(
+    formData,
+    evmWallet,
+    page,
+    transactionStep,
+    setTransactionStep,
+  );
 
   const onInitTransaction = () => {
     // const newNum = Date.now();
