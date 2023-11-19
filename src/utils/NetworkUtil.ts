@@ -4,7 +4,7 @@ import { PROVIDER_TYPES } from '../constants/ProviderTypes';
 import { iNetworkInfo } from '../interfaces/iNetwork';
 
 export const getNetworks = () => {
-  const isProd = false;
+  const isProd = true;
   return isProd ? networkListInfoProd : networkListInfo;
 };
 

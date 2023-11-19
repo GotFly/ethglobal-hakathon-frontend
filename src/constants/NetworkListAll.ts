@@ -11,7 +11,10 @@ export const networkListInfo: iNetworkInfo[] = [
     wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
     chainType: CHAIN_TYPE.EVM,
     chainId: '11155111',
-    rpcUrls: ['https://ethereum-sepolia.publicnode.com'],
+    rpcUrls: [
+      'https://endpoints.omniatech.io/v1/eth/sepolia/public',
+      'https://ethereum-sepolia.publicnode.com',
+    ],
     img: 'sepolia.svg',
     nativeCurrency: {
       name: 'ETH',

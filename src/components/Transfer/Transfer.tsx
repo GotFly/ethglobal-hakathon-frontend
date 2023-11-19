@@ -19,10 +19,6 @@ import { useTransferApprove } from '../../hooks/transfer/useTransferApprove';
 import useGatewayTransfer from '../../hooks/walletGateway/useGatewayTransfer';
 import ConnectWallet from '../ConnectWallet/ConnectWallet';
 import Dashboard from '../Dashboard/Dashboard';
-import {
-  borrowPageDashboardData,
-  // lendPageDashboardData,
-} from '../../mocks/dashboardsData';
 import { lendStablecoinsData } from '../../mocks/tableData';
 import Table from '../Table/Table';
 import {
@@ -129,7 +125,7 @@ export default function Transfer({ page }: TransferProps) {
     showMessage,
   } = useTransferStep(formData, methodType, setDataTransaction, evmWallet, page);
 
-  const { lendDashboardItem } = useMakeDashboardData(formData, evmWallet, page);
+  const { lendDashboardItem, borrowDashboardItem, isDataEmpty } = useMakeDashboardData(formData, evmWallet, page);
 
   useGatewayApprove(
     formData.amount,
@@ -159,9 +155,10 @@ export default function Transfer({ page }: TransferProps) {
     <div className={style.page}>
       {connectedWallets.length == 0 && <ConnectWallet />}
       <Dashboard
+        isEmpty={isDataEmpty}
         page={page}
         lendItem={lendDashboardItem}
-        borrowItem={borrowPageDashboardData}
+        borrowItem={borrowDashboardItem}
         stableCoin={stableCoin}
       />
       <Table

@@ -18,7 +18,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       symbol: 'ETH',
       decimals: 18,
     },
-    contractAddress: '0xf82447768a94256BBf239B21De5b2e149683CFC4',
+    contractAddress: '0xDEA0c50CB0B16A653573ca6adBDB21eC4Fe36E9C',
+    loanExchangerContractAddress: '0x6FF1F42837A66962490858253c16FdDfCD1Dbc06',
     cryptos: [
       {
         name: 'USDT',
@@ -30,8 +31,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       {
         name: 'BCLTT',
         symbol: 'BCLTT',
-        decimals: '6',
-        contractAddress: '',
+        decimals: '18',
+        contractAddress: '0x1512FD4D1Bcc7959eEFD1672116d9E41CdcBc688',
         isDefaultStable: false,
         isLoanBorrower: true,
       },
@@ -39,7 +40,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'LCLTT',
         symbol: 'LCLTT',
         decimals: '6',
-        contractAddress: '0x69C4d08463F9BD15949d1c7a7cAACBfCa4AF3cD4',
+        contractAddress: '0x8d9F82f298d50f3B3EA7066EA4932E458DaEde1B',
         isDefaultStable: false,
         isLoanCreditor: true,
       },
@@ -62,7 +63,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       symbol: 'ETH',
       decimals: 18,
     },
-    contractAddress: '',
+    contractAddress: '0x6cBAA635fC1f47a38e645eee7194dCCFE455A207',
+    loanExchangerContractAddress: '0x6FF1F42837A66962490858253c16FdDfCD1Dbc06',
     cryptos: [
       {
         name: 'USDT',
@@ -74,8 +76,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       {
         name: 'BCLTT',
         symbol: 'BCLTT',
-        decimals: '6',
-        contractAddress: '',
+        decimals: '18',
+        contractAddress: '0x0000000000000000000000000000000000000000',
         isDefaultStable: false,
         isLoanBorrower: true,
       },
@@ -83,7 +85,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'LCLTT',
         symbol: 'LCLTT',
         decimals: '6',
-        contractAddress: '',
+        contractAddress: '0x89401875d6428f8eB99B74bf09bfbf48C506dB2a',
         isDefaultStable: false,
         isLoanCreditor: true,
       },
@@ -106,7 +108,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       symbol: 'ETH',
       decimals: 18,
     },
-    contractAddress: '',
+    contractAddress: '0x6cBAA635fC1f47a38e645eee7194dCCFE455A207',
+    loanExchangerContractAddress: '0x6FF1F42837A66962490858253c16FdDfCD1Dbc06',
     cryptos: [
       {
         name: 'USDC',
@@ -118,8 +121,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       {
         name: 'BCLTT',
         symbol: 'BCLTT',
-        decimals: '6',
-        contractAddress: '',
+        decimals: '18',
+        contractAddress: '0x0000000000000000000000000000000000000000',
         isDefaultStable: false,
         isLoanBorrower: true,
       },
@@ -127,7 +130,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'LCLTT',
         symbol: 'LCLTT',
         decimals: '6',
-        contractAddress: '',
+        contractAddress: '0x89401875d6428f8eB99B74bf09bfbf48C506dB2a',
         isDefaultStable: false,
         isLoanCreditor: true,
       },
@@ -150,7 +153,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       symbol: 'ETH',
       decimals: 18,
     },
-    contractAddress: '',
+    contractAddress: '0x6cBAA635fC1f47a38e645eee7194dCCFE455A207',
+    loanExchangerContractAddress: '0x6FF1F42837A66962490858253c16FdDfCD1Dbc06',
     cryptos: [
       {
         name: 'USDT',
@@ -163,7 +167,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'BCLTT',
         symbol: 'BCLTT',
         decimals: '6',
-        contractAddress: '',
+        contractAddress: '0x0000000000000000000000000000000000000000',
         isDefaultStable: false,
         isLoanBorrower: true,
       },
@@ -171,7 +175,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'LCLTT',
         symbol: 'LCLTT',
         decimals: '6',
-        contractAddress: '',
+        contractAddress: '0x89401875d6428f8eB99B74bf09bfbf48C506dB2a',
         isDefaultStable: false,
         isLoanCreditor: true,
       },
@@ -181,7 +185,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
   },
   {
     id: 5,
-    isInUse: true,
+    isInUse: false,
     name: 'Gnosis',
     symbol: 'Gnosis',
     wallets: [PROVIDER_TYPES.METAMASK, PROVIDER_TYPES.WALLET_CONNECT],
@@ -242,7 +246,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       symbol: 'CELO',
       decimals: 18,
     },
-    contractAddress: '',
+    contractAddress: '0x6cBAA635fC1f47a38e645eee7194dCCFE455A207',
+    loanExchangerContractAddress: '0x6FF1F42837A66962490858253c16FdDfCD1Dbc06',
     cryptos: [
       {
         name: 'USDT',
@@ -254,8 +259,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       {
         name: 'BCLTT',
         symbol: 'BCLTT',
-        decimals: '6',
-        contractAddress: '',
+        decimals: '18',
+        contractAddress: '0x0000000000000000000000000000000000000000',
         isDefaultStable: false,
         isLoanBorrower: true,
       },
@@ -263,7 +268,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'LCLTT',
         symbol: 'LCLTT',
         decimals: '6',
-        contractAddress: '',
+        contractAddress: '0x89401875d6428f8eB99B74bf09bfbf48C506dB2a',
         isDefaultStable: false,
         isLoanCreditor: true,
       },
@@ -286,20 +291,21 @@ export const networkListInfoProd: iNetworkInfo[] = [
       symbol: 'XDC',
       decimals: 18,
     },
-    contractAddress: '',
+    contractAddress: '0x6cBAA635fC1f47a38e645eee7194dCCFE455A207',
+    loanExchangerContractAddress: '0x6FF1F42837A66962490858253c16FdDfCD1Dbc06',
     cryptos: [
       {
         name: 'USDT',
         symbol: 'USDT',
         decimals: '6',
-        contractAddress: 'xdc49d3f7543335cf38Fa10889CCFF10207e22110B5',
+        contractAddress: '0x49d3f7543335cf38Fa10889CCFF10207e22110B5', //''
         isDefaultStable: true,
       },
       {
         name: 'BCLTT',
         symbol: 'BCLTT',
-        decimals: '6',
-        contractAddress: '',
+        decimals: '18',
+        contractAddress: '0x0000000000000000000000000000000000000000',
         isDefaultStable: false,
         isLoanBorrower: true,
       },
@@ -307,7 +313,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'LCLTT',
         symbol: 'LCLTT',
         decimals: '6',
-        contractAddress: '',
+        contractAddress: '0x89401875d6428f8eB99B74bf09bfbf48C506dB2a',
         isDefaultStable: false,
         isLoanCreditor: true,
       },
@@ -330,7 +336,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       symbol: 'MNT',
       decimals: 18,
     },
-    contractAddress: '',
+    contractAddress: '0x6cBAA635fC1f47a38e645eee7194dCCFE455A207',
+    loanExchangerContractAddress: '0x6FF1F42837A66962490858253c16FdDfCD1Dbc06',
     cryptos: [
       {
         name: 'USDT',
@@ -342,8 +349,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       {
         name: 'BCLTT',
         symbol: 'BCLTT',
-        decimals: '6',
-        contractAddress: '',
+        decimals: '18',
+        contractAddress: '0x0000000000000000000000000000000000000000',
         isDefaultStable: false,
         isLoanBorrower: true,
       },
@@ -351,7 +358,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'LCLTT',
         symbol: 'LCLTT',
         decimals: '6',
-        contractAddress: '',
+        contractAddress: '0x89401875d6428f8eB99B74bf09bfbf48C506dB2a',
         isDefaultStable: false,
         isLoanCreditor: true,
       },
@@ -374,7 +381,8 @@ export const networkListInfoProd: iNetworkInfo[] = [
       symbol: 'ETH',
       decimals: 18,
     },
-    contractAddress: '',
+    contractAddress: '0x6cBAA635fC1f47a38e645eee7194dCCFE455A207',
+    loanExchangerContractAddress: '0x6FF1F42837A66962490858253c16FdDfCD1Dbc06',
     cryptos: [
       {
         name: 'USDT',
@@ -387,7 +395,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'BCLTT',
         symbol: 'BCLTT',
         decimals: '6',
-        contractAddress: '',
+        contractAddress: '0x0000000000000000000000000000000000000000',
         isDefaultStable: false,
         isLoanBorrower: true,
       },
@@ -395,7 +403,7 @@ export const networkListInfoProd: iNetworkInfo[] = [
         name: 'LCLTT',
         symbol: 'LCLTT',
         decimals: '6',
-        contractAddress: '',
+        contractAddress: '0x89401875d6428f8eB99B74bf09bfbf48C506dB2a',
         isDefaultStable: false,
         isLoanCreditor: true,
       },
@@ -403,5 +411,4 @@ export const networkListInfoProd: iNetworkInfo[] = [
     blockExplorerUrls: ['https://scrollscan.com'],
     hasBorrowPool: false,
   },
-
 ];

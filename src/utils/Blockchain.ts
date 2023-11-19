@@ -150,3 +150,14 @@ export const getLpMaxData = async (
   return 0;
 };
 // setBorrowersLPData(uint _baseBorrowersStableAmount)
+
+export const getLoanCollacterial = async (network: iNetworkInfo) => {
+  const provider = new ethers.providers.JsonRpcProvider(network.rpcUrls[0]);
+  let contract = new ethers.Contract(
+    network.contractAddress,
+    LoanAbi,
+    provider,
+  );
+  const res = await contract.getCollateralFactorAmount();
+  return res;
+};

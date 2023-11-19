@@ -7,11 +7,17 @@ import {
   getBalanceOfWallet,
   getBorrowerData,
   getCreditData,
+  getLoanCollacterial,
+  getLpMaxData,
   getTokenTotalSupply,
 } from '../../utils/Blockchain';
 import { iLendPageDashboard } from '../../interfaces/iLendPageDashboard';
-import { lendPageDashboardData } from '../../mocks/dashboardsData';
+import {
+  borrowPageDashboardData,
+  lendPageDashboardData,
+} from '../../mocks/dashboardsData';
 import { getLPCreditor, getStableCoin } from '../../utils/NetworkUtil';
+import { iBorrowPageDashboard } from '../../interfaces/iBorrowPageDashboard';
 
 export function useMakeDashboardData(
   formData: iFormData | null,
@@ -20,6 +26,11 @@ export function useMakeDashboardData(
 ) {
   const [lendDashboardItem, setLendDashboardItem] =
     useState<iLendPageDashboard>(lendPageDashboardData);
+
+  const [borrowDashboardItem, setBorrowDashboardItem] =
+    useState<iBorrowPageDashboard>(borrowPageDashboardData);
+
+  const [isDataEmpty, setIsDataEmpty] = useState<boolean>(true);
 
   useEffect(() => {
     if (formData?.route && evmWallet) {
@@ -37,6 +48,22 @@ export function useMakeDashboardData(
         formData.route,
         evmWallet.accountAddress,
       );
+      if (!borrowData.hasLoan) {
+        setIsDataEmpty(true);
+      } else {
+        setIsDataEmpty(false);
+      }
+
+      let item: iBorrowPageDashboard = { ...borrowDashboardItem };
+      item.fundsBorrowed = borrowData.stableBalanceInit.toString();
+
+      let rate = await getLpMaxData(formData.route, evmWallet.accountAddress);
+
+      item.collateralAmount = borrowData.lpBalanceInit.toNumber() * rate;
+      item.balanceInclAPY = borrowData.lpBalanceLast.toNumber() * rate;
+      item.collateralRatio = await getLoanCollacterial(formData.route);
+      setBorrowDashboardItem(item);
+
       console.log(borrowData, 'borrowData');
     }
   };
@@ -48,6 +75,11 @@ export function useMakeDashboardData(
         evmWallet.accountAddress,
       );
 
+      if (creditData.lpBalance.isZero()) {
+        setIsDataEmpty(true);
+      } else {
+        setIsDataEmpty(false);
+      }
       let item: iLendPageDashboard = { ...lendDashboardItem };
 
       let stableToken = getStableCoin(formData.route);
@@ -68,19 +100,12 @@ export function useMakeDashboardData(
           formData.route,
           creditorToken,
         );
-        // let rate = creditortotalSupply.isZero()
-        //   ? creditortotalSupply
-        //   : stabletotalSupply.div(creditortotalSupply);
 
         let rate = creditortotalSupply.isZero()
           ? creditortotalSupply
           : formatAmountToHuman(stabletotalSupply, stableToken.decimals) /
             formatAmountToHuman(creditortotalSupply, creditorToken.decimals);
 
-        // item.accruedInterest.chainValue = rate
-        //   .mul(creditData.lpBalance)
-        //   .sub(creditData.stableBalance)
-        //   .toString();
         item.accruedInterest.chainValue =
           rate *
             formatAmountToHuman(creditData.lpBalance, creditorToken.decimals) -
@@ -88,6 +113,7 @@ export function useMakeDashboardData(
             creditData.stableBalance.toNumber(),
             stableToken.decimals,
           );
+        item.accruedInterest.chainValue = 0;
         console.log(
           stabletotalSupply.toString(),
           creditortotalSupply.toString(),
@@ -116,5 +142,5 @@ export function useMakeDashboardData(
       setLendDashboardItem(item);
     }
   };
-  return { lendDashboardItem };
+  return { lendDashboardItem, borrowDashboardItem, isDataEmpty };
 }
