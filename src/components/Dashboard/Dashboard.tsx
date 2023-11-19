@@ -34,7 +34,7 @@ export default function Dashboard({
             >
               <div className={style.itemsGroup}>
                 <div className={style.item}>
-                  <span className={style.itemTitle}>Number of loans taken</span>
+                  <span className={style.itemTitle}>Amount of loans taken</span>
                   <span className={style.itemValue}>
                     {borrowItem?.loansNumber}
                   </span>
@@ -52,14 +52,14 @@ export default function Dashboard({
               <div className={style.itemsGroup}>
                 <div className={style.item}>
                   <span className={style.itemTitle}>
-                    Current Collateral ratio
+                    Current collateral ratio
                   </span>
                   <span
                     className={style.itemValue}
                   >{`${borrowItem?.collateralRatio}%`}</span>
                 </div>
                 <div className={style.item}>
-                  <span className={style.itemTitle}>Liquidation ratio</span>
+                  <span className={style.itemTitle}>Liquidation factor</span>
                   <span
                     className={style.itemValue}
                   >{`${borrowItem?.liquidationRatio}%`}</span>

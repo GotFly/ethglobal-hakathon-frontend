@@ -5,4 +5,5 @@ export interface iFormData {
   route: iNetworkInfo | null;
   crypto: iTokenInfo | null;
   approvalAddress: string | null;
+  cryptoFrom: any;
 }

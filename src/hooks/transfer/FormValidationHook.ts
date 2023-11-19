@@ -14,7 +14,6 @@ export function FormValidationHook(formData: iFormData | null) {
   });
 
   const validate = () => {
-    console.log(formData,'formData')
     if (!formData) {
       return setFormValidationError({
         hasError: true,

@@ -12,4 +12,5 @@ export interface TableProps {
   balance: number;
   startTransfer: () => void;
   transactionStep: number;
+  isTest?: boolean;
 }

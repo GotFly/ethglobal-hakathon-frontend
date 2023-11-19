@@ -311,6 +311,19 @@ export const LoanAbi = [
     type: 'event',
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: '_address',
+        type: 'address',
+      },
+    ],
+    name: 'SetLoanExchangerEvent',
+    type: 'event',
+  },
+  {
     inputs: [
       {
         internalType: 'uint256',
@@ -500,6 +513,11 @@ export const LoanAbi = [
         name: 'lpBalance',
         type: 'uint256',
       },
+      {
+        internalType: 'uint256',
+        name: 'stableBalance',
+        type: 'uint256',
+      },
     ],
     stateMutability: 'view',
     type: 'function',
@@ -643,6 +661,11 @@ export const LoanAbi = [
             name: 'lpBalance',
             type: 'uint256',
           },
+          {
+            internalType: 'uint256',
+            name: 'stableBalance',
+            type: 'uint256',
+          },
         ],
         internalType: 'struct LoanCreditor.Creditor',
         name: '',
@@ -684,6 +707,19 @@ export const LoanAbi = [
     outputs: [
       {
         internalType: 'contract IERC20',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getLoanExchanger',
+    outputs: [
+      {
+        internalType: 'contract ILoanExchanger',
         name: '',
         type: 'address',
       },
@@ -818,6 +854,19 @@ export const LoanAbi = [
       },
     ],
     name: 'setCreditorStableToken',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract ILoanExchanger',
+        name: '_exchangerAddress',
+        type: 'address',
+      },
+    ],
+    name: 'setLoanExchanger',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

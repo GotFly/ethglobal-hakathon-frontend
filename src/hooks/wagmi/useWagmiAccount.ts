@@ -22,12 +22,12 @@ function useWagmiAccount() {
 
   const walletInfo = getWalletByTransport(
     connectedWallets,
-    TransportTypes.WAGMI
+    TransportTypes.WAGMI,
   );
 
-  const { chain, chains } = getNetwork();
-  const { address, connector, isConnected, isConnecting } = useAccount({
-    onConnect({ address, connector, isReconnected }) {
+  const { chain } = getNetwork();
+  const { isConnected } = useAccount({
+    onConnect({ address, connector }) {
       if (!connector) {
         return;
       }

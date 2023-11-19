@@ -11,6 +11,11 @@
   color: white;
   cursor: pointer;
   padding: 0 32px;
+
+  &:disabled {
+    background: rgba(171, 183, 201, 1);
+    cursor: auto;
+  }
 }
 
 .small {

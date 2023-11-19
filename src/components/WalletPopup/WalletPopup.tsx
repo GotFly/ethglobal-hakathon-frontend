@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import style from './WalletPopup.module.scss';
 import { WalletPopupProps } from './WalletPopup.props';
 import cn from 'classnames';
@@ -19,7 +18,6 @@ export default function WalletPopup({
   items,
   handleActive,
 }: WalletPopupProps) {
-
   let dispatch = useDispatch<AppThunkDispatch>();
   const { connectToWallet, disconnectWallet } = useWagmiConnect();
 

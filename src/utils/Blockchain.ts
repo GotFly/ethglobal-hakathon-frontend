@@ -1,7 +1,8 @@
-import { constants, ethers } from 'ethers';
-import { iNetworkInfo } from '../interfaces/iNetwork';
+import { BigNumber, constants, ethers } from 'ethers';
+import { iNetworkInfo, iTokenInfo } from '../interfaces/iNetwork';
 import { getStableCoin } from './NetworkUtil';
 import { LoanAbi } from '../abis/LoanAbi';
+import ERC20Abi from '../abis/ERC20Abi';
 
 export const isZeroAddress = (address: string | null) => {
   if (
@@ -41,7 +42,60 @@ export const encodeFunctionData = async (
   return data;
 };
 
+export const formatAmountToHuman = (amount: BigNumber, tokenDecimals: string) => {
+  return parseFloat(ethers.utils.formatUnits(amount, tokenDecimals));
+};
 export const getCreditData = async (
+  network: iNetworkInfo,
+  accountAddress: string,
+) => {
+  const provider = new ethers.providers.JsonRpcProvider(network.rpcUrls[0]);
+  const crypto = getStableCoin(network);
+  if (crypto) {
+    let contract = new ethers.Contract(
+      network.contractAddress || '',
+      LoanAbi,
+      provider,
+    );
+    const res = await contract.getCreditorData(accountAddress);
+    return res;
+  }
+};
+
+export const getTokenTotalSupply = async (
+  network: iNetworkInfo,
+  crypto: iTokenInfo,
+) => {
+  const provider = new ethers.providers.JsonRpcProvider(network.rpcUrls[0]);
+  if (crypto) {
+    let contract = new ethers.Contract(
+      crypto.contractAddress,
+      ERC20Abi,
+      provider,
+    );
+    const res = await contract.totalSupply();
+    return res;
+  }
+};
+
+export const getBalanceOfWallet = async (
+  network: iNetworkInfo,
+  crypto: iTokenInfo,
+  accountAddress: string,
+) => {
+  const provider = new ethers.providers.JsonRpcProvider(network.rpcUrls[0]);
+  if (crypto) {
+    let contract = new ethers.Contract(
+      crypto.contractAddress,
+      ERC20Abi,
+      provider,
+    );
+    const res = await contract.balanceOf(accountAddress);
+    return res;
+  }
+};
+
+export const getBorrowerData = async (
   network: iNetworkInfo,
   accountAddress: string,
 ) => {
@@ -51,12 +105,12 @@ export const getCreditData = async (
   const crypto = getStableCoin(network);
   if (crypto) {
     let contract = new ethers.Contract(
-      crypto.contractAddress,
+      network.contractAddress || '',
       LoanAbi,
       provider,
     );
-    console.log(crypto.contractAddress, accountAddress, 'accountAddress');
-    const res = await contract.getCreditorData(accountAddress);
-    console.log(res, 'res');
+    const res = await contract.getBorrowerData(accountAddress);
+    return res;
   }
 };
+// setBorrowersLPData(uint _baseBorrowersStableAmount)

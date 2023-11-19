@@ -9,24 +9,24 @@ export const borrowPageDashboardData: iBorrowPageDashboard = {
     currencyValue: 1200,
   },
   collateralRatio: 90,
-  liquidationRatio: 70,
+  liquidationRatio: 80,
 };
 
 export const lendPageDashboardData: iLendPageDashboard = {
   fundsSupplied: {
     tokenName: 'USDT',
-    chainValue: 1200,
-    currencyValue: 1200,
+    chainValue: 0,
+    currencyValue: 0,
   },
   accruedInterest: {
     tokenName: 'USDT',
-    chainValue: 200,
-    currencyValue: 200,
+    chainValue: 0,
+    currencyValue: 0,
   },
   utilRate: {
     tokenName: 'USDT',
-    chainValue: 90,
-    percentValue: 90,
+    chainValue: 0,
+    percentValue: 0,
   },
   currentAPY: 45.2,
 };

@@ -25,12 +25,12 @@ function useWagmiNetworkChange(
         await disconnect();
 
         try {
-          console.log(changeNetworkState,changeNetworkState.selectedNetwork.chainId,'changeNetworkState')
-          const result = await connect({
+          // console.log(changeNetworkState,changeNetworkState.selectedNetwork.chainId,'changeNetworkState')
+          await connect({
             chainId: parseInt(changeNetworkState.selectedNetwork.chainId), //optimism.id,
             connector: WalletConnectConfig,
           });
-          console.log(result,'result');
+          // console.log(result,'result');
           // const network = await switchNetwork({
           //   chainId: 56, //parseInt(changeNetworkState.selectedNetwork.chainId),
           // });

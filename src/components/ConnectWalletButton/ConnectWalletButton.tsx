@@ -7,18 +7,17 @@ import { WalletList } from '../../constants/WalletList';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppThunkDispatch, RootState } from '../../store/store';
 import { cutAddressFormat, getWallet } from '../../utils/WalletUtil';
-import { getNetworkImageByChainId } from '../../utils/NetworkUtil';
-import { networkListInfo } from '../../constants/NetworkListAll';
+import { getNetworkImageByChainId, getNetworks } from '../../utils/NetworkUtil';
 import { iNetworkInfo } from '../../interfaces/iNetwork';
 import useGatewayNetworkChange, {
   iNetworkChangeResponce,
-  iNetworkState,
+  // iNetworkState,
 } from '../../hooks/walletGateway/useGatewayNetworkChange';
 import WalletPopup from '../WalletPopup/WalletPopup';
 import { showNotifaction } from '../../features/dialogs/notificationPopupSlice';
 import { ALERT_TYPE } from '../../constants/AlertTypes';
 
-export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
+export default function ConnectWalletButton({}: ConnectWalletButtonProps) {
   const [isDropdownShown, setIsDropdownShown] = useState<boolean>(false);
   const [isNetworksShown, setIsNetworksShown] = useState<boolean>(false);
 
@@ -41,7 +40,7 @@ export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
 
   useEffect(() => {
     if (isDropdownShown && isNetworksShown) {
-      setIsNetworksShown(false)
+      setIsNetworksShown(false);
     }
   }, [isDropdownShown]);
 
@@ -49,8 +48,9 @@ export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
     handleChainChange(network);
   };
 
-  const networkChangeCallback = (networkChangeState: iNetworkChangeResponce) => {
-    console.log(networkChangeState, 'networkChangeState')
+  const networkChangeCallback = (
+    networkChangeState: iNetworkChangeResponce,
+  ) => {
     if (networkChangeState.isSuccess) {
       setIsNetworksShown(false);
     } else {
@@ -110,7 +110,7 @@ export default function ConnectWalletButton({ }: ConnectWalletButtonProps) {
       >
         <h2 className={style.dropdownTitle}>Switch network</h2>
         <div className={style.networks}>
-          {networkListInfo.map(item => (
+          {getNetworks().map(item => (
             <div
               key={item.name}
               className={cn(style.networkItem, {

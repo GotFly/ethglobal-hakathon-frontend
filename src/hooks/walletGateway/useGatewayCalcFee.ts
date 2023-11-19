@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BigNumber, ethers } from 'ethers';
 import { getWallet } from '../../utils/WalletUtil';
@@ -44,7 +44,7 @@ function useGatewayCalcFee(
     if (feeState && feeState.state == FEE_STATE.GETED) {
       const calcNativeFee = async () => {
         let amount = 0;
-        let errorMsg = null;
+        // let errorMsg = null;
         if (feeState.gasPrice) {
           try {
             let gasPrice = feeState.gasPrice;
@@ -58,7 +58,7 @@ function useGatewayCalcFee(
               ethers.utils.formatUnits(amount1, roundDecimal),
             );
           } catch (error: any) {
-            errorMsg = error?.message || error;
+            console.log(error?.message || error);
           }
         }
 
@@ -76,8 +76,8 @@ function useGatewayCalcFee(
         let nativeCrypto = network.nativeCurrency;
         let amountInUsd = 0;
         if (nativeCrypto) {
-          const usdCourse = {hasError: false ,data :0};// await getPiceByCryptoSymbol(nativeCrypto.symbol);
-          amountInUsd = usdCourse.hasError 
+          const usdCourse = { hasError: false, data: 0 }; // await getPiceByCryptoSymbol(nativeCrypto.symbol);
+          amountInUsd = usdCourse.hasError
             ? 0
             : (feeState.feeNative || 0) * usdCourse.data;
         }

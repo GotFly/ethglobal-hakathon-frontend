@@ -21,7 +21,7 @@ export function useTransferApprove(
 ) {
   const transferApproveCallback = (transferState: iTransferState) => {
     if (transferState.isApproved) {
-      afterTransferApproved(transferState.transaction, transferState.wait);
+      afterTransferApproved(transferState.transaction);
     } else {
       setTransactionStep(STEP_TRANSFER_REJECTED);
       setTransactionStep(STEP_FORM_FILL);
@@ -33,7 +33,7 @@ export function useTransferApprove(
     }
   };
 
-  const afterTransferApproved = async (txHash: string, wait = null) => {
+  const afterTransferApproved = async (txHash: string) => {
     // showStepPopup(TYPE_TRANSFER);
     setDataTransaction((prevState: iTransactionData) => ({
       ...prevState,
@@ -44,15 +44,19 @@ export function useTransferApprove(
     setTransactionStep(STEP_TRANSFER_APPROVED);
     // handleTransactionProcess(, txHash);
 
-    await mintTransaction(txHash);
-    showMessage(
-      ALERT_TYPE.SUCCESS,
-      'Congratulations',
-      CrmMessages.TRANSFER_NETWORK_PROCCESSED,
-    );
+    let isMined = await mintTransaction(txHash);
+    if (isMined) {
+      showMessage(
+        ALERT_TYPE.SUCCESS,
+        'Congratulations',
+        CrmMessages.TRANSFER_NETWORK_PROCCESSED,
+      );
+    } else {
+      showMessage(ALERT_TYPE.WARNING, null, CrmMessages.TRANSFER_NETWORK_ERROR);
+    }
     setTransactionStep(STEP_TRANSFER_FINISHED);
     setTransactionStep(STEP_FORM_FILL);
-    makeBalanceRefresh()
+    makeBalanceRefresh();
   };
 
   const mintTransaction = async (txHash: string) => {
@@ -61,6 +65,12 @@ export function useTransferApprove(
       formData.route.rpcUrls[0],
     );
     await Provider2.waitForTransaction(txHash);
+    const txReceipt = await Provider2.getTransactionReceipt(txHash);
+    if (txReceipt && txReceipt.blockNumber && txReceipt.status == 1) {
+      return true;
+    } else {
+      false;
+    }
   };
 
   return { transferApproveCallback };

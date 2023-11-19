@@ -3,12 +3,8 @@ import WorldCoinButton from '../WorldCoinButton/WorldCoinButton';
 import style from './Header.module.scss';
 import { HeaderProps } from './Header.props';
 import Notification from '../Notification/Notification';
-import { useState } from 'react';
 
 export default function Header({}: HeaderProps) {
-  const [isNotificationVisible, setNotificationVisible] =
-    useState<boolean>(false);
-
   return (
     <div className={style.header}>
       <img className={style.logo} src="/logo.svg" alt="" width={111} />

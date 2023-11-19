@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getWallet } from '../../utils/WalletUtil';
 import { iNetworkInfo } from '../../interfaces/iNetwork';
@@ -27,9 +27,7 @@ export interface iNetworkChangeResponce {
   error?: any;
 }
 
-function useGatewayNetworkChange(
-  networkChangeCallback: any,
-) {
+function useGatewayNetworkChange(networkChangeCallback: any) {
   let [changeNetworkState, setChangeNetworkState] =
     useState<iNetworkState | null>(null);
 
@@ -55,8 +53,8 @@ function useGatewayNetworkChange(
     }
   }, [changeNetworkState]);
 
-  const handleChainChange = (network:iNetworkInfo) => {
-    if(walletInfo){
+  const handleChainChange = (network: iNetworkInfo) => {
+    if (walletInfo) {
       setChangeNetworkState({
         selectedNetwork: network,
         state: NETWORK_STATE.STARTED,

@@ -1,9 +1,11 @@
 import { networkListInfo } from '../constants/NetworkListAll';
+import { networkListInfoProd } from '../constants/NetworkListAllProd';
 import { PROVIDER_TYPES } from '../constants/ProviderTypes';
 import { iNetworkInfo } from '../interfaces/iNetwork';
 
 export const getNetworks = () => {
-  return networkListInfo;
+  const isProd = false;
+  return isProd ? networkListInfoProd : networkListInfo;
 };
 
 export function getNetworkByChainIdAndWallet(
@@ -36,6 +38,20 @@ export const getStableCoin = (network: iNetworkInfo | null | undefined) => {
     return null;
   }
   return network.cryptos.find(v => v.isDefaultStable) || null;
+};
+
+export const getLPBorrower = (network: iNetworkInfo | null | undefined) => {
+  if (!network || !network.cryptos) {
+    return null;
+  }
+  return network.cryptos.find(v => v.isLoanBorrower) || null;
+};
+
+export const getLPCreditor = (network: iNetworkInfo | null | undefined) => {
+  if (!network || !network.cryptos) {
+    return null;
+  }
+  return network.cryptos.find(v => v.isLoanCreditor) || null;
 };
 
 export const getTokenIcon = (tokenSymbol: string) => {

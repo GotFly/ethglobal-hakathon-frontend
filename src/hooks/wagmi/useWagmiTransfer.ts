@@ -5,8 +5,6 @@ import {
 } from '../walletGateway/useGatewayTransfer';
 import { TransportTypes } from '../../constants/TransportTypes';
 import {
-  fetchFeeData,
-  getProvider,
   prepareSendTransaction,
   sendTransaction,
 } from 'wagmi/actions';
@@ -15,11 +13,11 @@ export function useWagmiTransfer(
   transferState: iTransferState | null,
   setTransferState: any,
 ) {
-  const lengthInUtf8Bytes = (str: string) => {
-    // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
-    var m = encodeURIComponent(str).match(/%[89ABab]/g);
-    return str.length + (m ? m.length : 0);
-  };
+  // const lengthInUtf8Bytes = (str: string) => {
+  //   // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
+  //   var m = encodeURIComponent(str).match(/%[89ABab]/g);
+  //   return str.length + (m ? m.length : 0);
+  // };
 
   useEffect(() => {
     if (
@@ -32,15 +30,18 @@ export function useWagmiTransfer(
         let transferWait: any = null;
         let errorObj: any = null;
         try {
-          const feeData = await fetchFeeData();
+          // const feeData = await fetchFeeData();
 
-          const gasPrice = feeData.gasPrice;
+          // const gasPrice = feeData.gasPrice;
           // const str = ethers.utils.formatEther(price);
           // const eth = str * 2;
           // const estimation = ethers.utils.parseEther(eth.toFixed(18));
+          // console.log(gasPrice);
 
-          const provider = getProvider();
-          const gasPrice2 = await provider.getGasPrice();
+          // const provider = getProvider();
+          // const gasPrice2 = await provider.getGasPrice();
+
+          // console.log(gasPrice2);
 
           const config = await prepareSendTransaction({
             request: {

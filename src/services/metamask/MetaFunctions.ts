@@ -11,10 +11,11 @@ export async function signMeta(account: string, injectProvider = null) {
     const from = account;
     // const msg = `0x${Buffer.from(exampleMessage, "utf8").toString("hex")}`;
     const msg = `0x${hexEncode(CrmMessages.SIGN_TEXT)}`;
-    const sign = await (provider as any).request({
+    await (provider as any).request({
       method: 'personal_sign',
       params: [msg, from, 'Example password'],
     });
+    // console.log(sign);
     isSigned = true;
   } catch (err) {
     isSigned = false;

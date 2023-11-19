@@ -69,9 +69,7 @@ interface IMetaProvider {
   addChain: (selectedNetwork: INetworkAdd) => Promise<iNetworkChangeResponce>;
   addChainById: (networkChainId: string, dispatch: any) => Promise<any>;
   makeAddNetwork: (network: iNetworkInfo) => INetworkAdd;
-  changeChain: (
-    network: iNetworkInfo,
-  ) => Promise<iNetworkChangeResponce>;
+  changeChain: (network: iNetworkInfo) => Promise<iNetworkChangeResponce>;
   processChainError: (error: any) => string;
   calcGas: () => Promise<any>;
   calsTransGas: (transactionData: iTransactionData) => Promise<any>;
@@ -334,7 +332,7 @@ export const MetamaskWebProvider: IMetaProvider = {
     }
     return isAdded;
   },
-  makeAddNetwork: function (network) {
+  makeAddNetwork: function (network: any) {
     return {
       chainId: ethers.utils.hexValue(parseInt(network.chainId)),
       chainName: network.name,

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useContract, useSigner, erc20ABI } from 'wagmi';
+import { erc20ABI } from 'wagmi';
 import { getContract, getProvider } from '@wagmi/core';
 import { prepareWriteContract, writeContract } from '@wagmi/core';
 import { TransportTypes } from '../../constants/TransportTypes';
@@ -12,7 +12,7 @@ function useWagmiAlowance(
   approvalState: iApprovalState,
   setApprovalState: any,
 ) {
-  const { data: signer } = useSigner();
+  // const { data: signer } = useSigner();
 
   useEffect(() => {
     const provider = getProvider();
@@ -52,7 +52,10 @@ function useWagmiAlowance(
               address: approvalState.tokenContractAddress as any,
               abi: erc20ABI,
               functionName: 'approve',
-              args: [approvalState.approvalAddress as any, approvalState.amount as any],
+              args: [
+                approvalState.approvalAddress as any,
+                approvalState.amount as any,
+              ],
             });
             approveTransaction = await writeContract(config);
 

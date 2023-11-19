@@ -10,12 +10,13 @@ export interface iNetworkInfo {
   chainType: CHAIN_TYPE;
   chainId: string;
   rpcUrls: string[];
-  cryptos?: iTokenInfo[];
-  contractAddress?: string;
+  cryptos: iTokenInfo[];
+  contractAddress: string;
   img: string;
   nativeCurrency: iNativeTokenInfo;
   txScanUrl?: string;
   blockExplorerUrls?: string[];
+  hasBorrowPool: boolean;
 }
 
 export interface iTokenInfo {
@@ -24,6 +25,8 @@ export interface iTokenInfo {
   contractAddress: string;
   decimals: string;
   isDefaultStable: boolean;
+  isLoanBorrower?: boolean;
+  isLoanCreditor?: boolean;
 }
 
 export interface iNativeTokenInfo {

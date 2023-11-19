@@ -61,7 +61,7 @@ function useGatewayApprove(
       approvalState.state === APPROVAL_STATE.FINISHED &&
       transactionStep === STEP_APPROVE_STARTED
     ) {
-      console.log(approvalState,'approvalState')
+      // console.log(approvalState,'approvalState')
       callback({
         isApproved: approvalState.isApproved,
         transaction: approvalState.transaction,

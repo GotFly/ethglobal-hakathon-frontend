@@ -28,7 +28,7 @@ export default function Notification() {
     >
       <img src="/attantion-icon.svg" alt="" />
       <div className={style.content}>
-          <span className={style.title}>{notificationState.title}</span>
+        <span className={style.title}>{notificationState.title || 'Information'}</span>
         <span
           className={style.message}
           dangerouslySetInnerHTML={{ __html: notificationState.caption || '' }}

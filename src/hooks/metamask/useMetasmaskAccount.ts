@@ -82,7 +82,7 @@ function useMetasmaskAccount() {
     const onPageLoad = () => {
       connectMeta();
       // dispatch(autoConnectWallet());
-      console.log('page loaded');
+      // console.log('page loaded');
       // do something else
     };
 

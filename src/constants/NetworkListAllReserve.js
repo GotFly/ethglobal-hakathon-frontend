@@ -22,13 +22,14 @@ export const networkListInfoReserved: iNetworkInfo[] = [
       decimals: 18,
     },
     contractAddress: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
-    cryptos:[
+    cryptos: [
       {
         name: 'USDT',
         symbol: 'USDT',
         decimals: '6',
-        contractAddress:'0xc2132D05D31c914a87C6611C10748AEb04B58e8F'
-      }
+        contractAddress: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
+        isDefaultStable: false, // !!! ДОБАВИЛ НЕДОСТАЮЩЕЕ СВОЙСТВО
+      },
     ],
     blockExplorerUrls: ['https://polygonscan.com/'],
   },

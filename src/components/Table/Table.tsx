@@ -58,7 +58,9 @@ export default function Table({
                   </div>
                   <div className={style.farmingTitle}>
                     <span
-                      className={style.farmingName}
+                      className={cn(style.farmingName, {
+                        [style.farmingNameTest]: !formData.route?.hasBorrowPool,
+                      })}
                     >{`${itemBorrow?.tokens[0].name}-${itemBorrow?.tokens[1].name}`}</span>
                     <span className={style.swapName}>{itemBorrow?.swap}</span>
                   </div>
@@ -135,7 +137,7 @@ export default function Table({
                 <div className={style.available}>
                   <span
                     className={style.availableChain}
-                  >{`${itemBorrow?.availableToBorrow.chainValue} ${stableCoin}`}</span>
+                  >{`${itemBorrow?.availableToBorrow.chainValue}`}</span>
                   <span className={style.availableCurrency}>
                     {'$' + itemBorrow?.availableToBorrow.currencyValue}
                   </span>
@@ -148,9 +150,7 @@ export default function Table({
                   Asset to borrow
                 </ColumnTitle>
               </div>
-              <div className={cn(style.cell, style.center)}>
-                {stableCoin}
-              </div>
+              <div className={cn(style.cell, style.center)}>{stableCoin}</div>
             </div>
             <Button
               className={cn(style.borrowBtn, {
@@ -158,6 +158,7 @@ export default function Table({
               })}
               size={'small'}
               onClick={() => setIsFormVisible(!isFormVisible)}
+              disabled={!formData.route?.hasBorrowPool}
             >
               {isFormVisible ? 'Hide' : 'Borrow'}
               {isFormVisible && <img src="/collapse-arrow.svg" alt="" />}
@@ -174,7 +175,7 @@ export default function Table({
                 exit={'hidden'}
               >
                 <div className={style.borrowInputBlock}>
-                  <span className={style.inputLabel}>Balance: 0.00</span>
+                  <span className={style.inputLabel}>Balance: {balance}</span>
                   <input
                     onKeyPress={e => onlyNumber(e)}
                     placeholder="Enter the amount of LP tokens"
@@ -190,9 +191,12 @@ export default function Table({
                 </div>
                 <div className={style.youWillGet}>
                   <span className={style.inputLabel}>You will get:</span>
-                  <span className={style.youWillGetValue}>1000 {stableCoin}</span>
+                  <span className={style.youWillGetValue}>
+                    1000 {stableCoin}
+                  </span>
                 </div>
                 <Button
+                  disabled={transactionStep != STEP_FORM_FILL}
                   className={style.formBtn}
                   size={'small'}
                   type="button"
@@ -271,7 +275,7 @@ export default function Table({
             <div className={style.col}>
               <div className={style.head}>
                 <ColumnTitle infoMessage={'Example message text'}>
-                  Liquidation ratio
+                  Liquidation factor
                 </ColumnTitle>
               </div>
               <div
@@ -284,9 +288,7 @@ export default function Table({
                   Reward asset
                 </ColumnTitle>
               </div>
-              <div className={cn(style.cell, style.center)}>
-                {stableCoin}
-              </div>
+              <div className={cn(style.cell, style.center)}>{stableCoin}</div>
             </div>
 
             <Button

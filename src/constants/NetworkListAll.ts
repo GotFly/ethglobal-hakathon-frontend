@@ -18,7 +18,7 @@ export const networkListInfo: iNetworkInfo[] = [
       symbol: 'ETH',
       decimals: 18,
     },
-    contractAddress: '0x241922F1B542c8B6b8924fb85cBf56bD18Ab4DcB',
+    contractAddress: '0xcF12A720D91AE6cCe64c6Cb45a769bC143739e4A',
     cryptos: [
       {
         name: 'LCSTT',
@@ -27,7 +27,24 @@ export const networkListInfo: iNetworkInfo[] = [
         contractAddress: '0xC05261F1a862810361E8FFa3645CA3aAC4e76721',
         isDefaultStable: true,
       },
+      {
+        name: 'BCLTT',
+        symbol: 'BCLTT',
+        decimals: '18',
+        contractAddress: '0x8a946582EF839B08eF67B2F78cE02622D7f138b5',
+        isDefaultStable: false,
+        isLoanBorrower: true,
+      },
+      {
+        name: 'LCLTT',
+        symbol: 'LCLTT',
+        decimals: '6',
+        contractAddress: '0x03898449Ae8C29295E0915da2F18F24d177bBE6C',
+        isDefaultStable: false,
+        isLoanCreditor: true,
+      },
     ],
     blockExplorerUrls: ['https://sepolia.etherscan.io/'],
+    hasBorrowPool: true,
   },
 ];

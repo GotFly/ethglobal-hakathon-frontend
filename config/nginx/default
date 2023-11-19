@@ -1,0 +1,18 @@
+# Loans
+server {
+    listen 80;
+    listen 443;
+
+    server_name _;
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript;
+
+    root /www/app/dist;
+    location / {
+        try_files $uri $uri/ /index.html =404;
+    }
+
+    error_log /var/log/nginx/angular_error.log;
+    access_log /var/log/nginx/angular_access.log;
+}

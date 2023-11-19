@@ -11,11 +11,7 @@ import { iApprovalState } from '../walletGateway/useGatewayApprove';
 import { iTransactionData } from '../../interfaces/iTransactionData';
 import { iFormData } from '../../interfaces/iFormData';
 import { MethodType } from '../../constants/MethodType';
-import {
-  encodeFunctionData,
-  formatAmountToUint,
-  getCreditData,
-} from '../../utils/Blockchain';
+import { encodeFunctionData, formatAmountToUint } from '../../utils/Blockchain';
 import { LoanAbi } from '../../abis/LoanAbi';
 import { FormValidationHook } from './FormValidationHook';
 import { useDispatch } from 'react-redux';
@@ -25,13 +21,11 @@ import {
   showNotifaction,
 } from '../../features/dialogs/notificationPopupSlice';
 import { ALERT_TYPE } from '../../constants/AlertTypes';
-import { iNetworkInfo } from '../../interfaces/iNetwork';
-import { iWalletInfo } from '../../interfaces/iWallet';
+// import { iWalletInfo } from '../../interfaces/iWallet';
 import { CrmMessages } from '../../constants/CrmMessages';
 
 export function useTransferStep(
   formData: iFormData | null,
-  evmWallet: iWalletInfo | null,
   methodType: MethodType,
   setDataTransaction: any,
 ) {
@@ -66,7 +60,7 @@ export function useTransferStep(
 
   const onApproveRejected = () => {
     showMessage(ALERT_TYPE.WARNING, null, CrmMessages.APPROVE_REJECTED);
-    // setTransactionStep(STEP_APPROVE_REJECTED);
+    setTransactionStep(STEP_APPROVE_REJECTED);
     setTransactionStep(STEP_FORM_FILL);
   };
 
@@ -105,7 +99,6 @@ export function useTransferStep(
     let methodName: string = '';
     let methodParams: any[] = [];
 
-    console.log(methodType, 'methodType');
     if (methodType == MethodType.addLiquidity) {
       methodName = 'addCreditorLiquidity';
       methodParams.push(
@@ -117,7 +110,7 @@ export function useTransferStep(
         formatAmountToUint(formData.amount, formData.crypto?.decimals),
       );
     }
-    console.log(methodName, methodParams, 'methodParams');
+
     const data: string = await encodeFunctionData(
       LoanAbi,
       methodName,
@@ -134,7 +127,6 @@ export function useTransferStep(
         CrmMessages.TRANSFER_DATA_PREPARING,
       );
       let data: string = await makeData(formData);
-      console.log(data, 'data');
       setDataTransaction((prevState: iTransactionData) => ({
         ...prevState,
         to: formData.route?.contractAddress,
@@ -177,19 +169,6 @@ export function useTransferStep(
       prepareData();
     }
   }, [transactionStep, formData]);
-
-  useEffect(() => {
-    if (formData?.route && evmWallet) {
-      getWalletCreditData(formData?.route, evmWallet.accountAddress);
-    }
-  }, [formData?.route]);
-
-  const getWalletCreditData = (
-    network: iNetworkInfo,
-    accountAddress: string,
-  ) => {
-    getCreditData(network, accountAddress);
-  };
 
   return {
     transactionStep,

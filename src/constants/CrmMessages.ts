@@ -12,4 +12,5 @@ I understand the risks associated with entering into using Chainspot Network pro
   TRANSFER_ERROR = 'Problem happened with contract interaction',
   TRANSFER_APPROVED = 'Transfer approved. Please wait until blockchain process',
   TRANSFER_NETWORK_PROCCESSED = 'Transfer proccessed by blockchain. Please check your wallet ',
+  TRANSFER_NETWORK_ERROR = 'Error happened on  proccessing by blockchain.',
 }

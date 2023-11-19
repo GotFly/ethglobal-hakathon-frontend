@@ -5,7 +5,7 @@ import { InfoButtonProps } from './InfoButton.props';
 export default function InfoButton({
   message,
   inverted = false,
-  orientation = 'center',
+  // orientation = 'center',
   className,
 }: InfoButtonProps) {
   return (
